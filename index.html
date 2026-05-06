@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#f2ede4">
+<title>FlashKarte – Deutsch A1/A2</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --ink:#0a0c10; --paper:#f2ede4; --cream:#ebe4d8; --warm:#ddd5c8;
+  --card:#faf7f1; --gold:#c9963c; --gold2:#b07d28; --goldl:#f0d080;
+  --teal:#1a6b5e; --teal2:#0d4a40; --teall:#d0ebe6;
+  --rose:#8b3a3a; --green:#2d6a4f;
+  --c1:#18150f; --c2:#3d3530; --c3:#6b5f54; --c4:#9e8e80; --c5:#c8b8a8;
+  --fa:'Vazirmatn',sans-serif; --de:'Readex Pro',sans-serif;
+  --sh:0 8px 32px rgba(0,0,0,.12);
+}
+html,body{height:100%;height:100dvh;background:var(--paper);overflow:hidden;font-family:var(--fa);-webkit-font-smoothing:antialiased}
+
+/* NOISE */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");opacity:.35;pointer-events:none;z-index:0}
+.app{position:relative;height:100vh;height:100dvh;display:flex;flex-direction:column;z-index:1;max-width:480px;margin:0 auto}
+
+/* WELCOME BAR */
+.welcome-bar{padding:7px 16px 5px;display:flex;align-items:center;gap:6px;flex-shrink:0;background:linear-gradient(90deg,rgba(26,107,94,.08),transparent)}
+.wb-de{font-family:var(--de);font-size:12px;font-weight:500;color:var(--c4)}
+.wb-name{font-family:var(--de);font-size:13px;font-weight:700;color:var(--teal)}
+.wb-wave{font-size:14px}
+
+/* HEADER */
+.hdr{padding:10px 14px 6px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--teal2),var(--teal));display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 10px rgba(13,74,64,.3)}
+.logo-text{font-family:var(--de);font-size:17px;font-weight:700;color:var(--c1)}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.pi{font-size:11px;color:var(--c4);font-weight:600;font-variant-numeric:tabular-nums}
+.hdr-btn{padding:5px 12px;border-radius:16px;border:1px solid rgba(0,0,0,.1);background:var(--cream);font-size:11px;font-weight:600;color:var(--c3);cursor:pointer;font-family:var(--fa)}
+
+/* PROGRESS */
+.pbar{height:3px;background:var(--warm);flex-shrink:0}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .5s ease;position:relative}
+.pbar-fill::after{content:'';position:absolute;right:-3px;top:-3px;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+
+/* STAGE TABS */
+.tabs{display:flex;gap:5px;padding:8px 12px 4px;flex-shrink:0}
+.tab{flex:1;padding:7px 4px;border-radius:10px;font-size:10px;font-weight:700;color:var(--c5);text-align:center;background:var(--cream);border:1.5px solid transparent;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:4px}
+.tab.done{background:var(--teall);color:var(--teal);border-color:rgba(26,107,94,.25)}
+.tab.active{background:var(--teal);color:#fff;box-shadow:0 3px 12px rgba(26,107,94,.3)}
+.tab-num{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25);font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tab.done .tab-num{background:rgba(26,107,94,.3)}
+.tab:not(.active):not(.done) .tab-num{background:rgba(0,0,0,.08)}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 12px 0;display:flex;flex-direction:column;align-items:stretch;gap:10px;min-height:0;overscroll-behavior:contain}
+.main::-webkit-scrollbar{display:none}
+
+/* CARD */
+.card{border-radius:22px;overflow:hidden;box-shadow:var(--sh)}
+
+/* ─── STAGE 0: LESEN ─── */
+.card-read{background:var(--card);border:1px solid rgba(0,0,0,.06)}
+.read-hero{background:linear-gradient(160deg,var(--teal2) 0%,var(--teal) 100%);padding:24px 20px 22px;text-align:center;position:relative;overflow:hidden}
+.read-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)}
+.read-hero::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04)}
+.read-ch{font-size:9px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:10px}
+.read-emoji{font-size:60px;display:block;margin-bottom:10px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))}
+.read-word{font-family:var(--de);font-size:30px;font-weight:700;color:#fff;letter-spacing:-.5px;line-height:1.3;position:relative;z-index:1}
+.read-gram{font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;font-family:var(--de);line-height:1.5}
+.speak-row{margin-top:14px;display:flex;justify-content:center;gap:8px}
+.speak-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;cursor:pointer;font-size:12px;color:#fff;font-family:var(--fa);transition:all .15s}
+.speak-btn:hover{background:rgba(255,255,255,.22)}
+.read-body{padding:16px 18px}
+.fa-reveal-btn{width:100%;padding:11px 0;border-radius:12px;background:var(--cream);border:1px solid rgba(0,0,0,.08);cursor:pointer;font-family:var(--fa);font-size:13px;font-weight:600;color:var(--c3);transition:all .15s}
+.fa-reveal-btn:hover{background:var(--warm)}
+.fa-text{font-size:24px;font-weight:800;color:var(--c1);direction:rtl;text-align:center;line-height:1.7;margin-top:12px;padding:12px 14px;background:rgba(26,107,94,.06);border:1px solid rgba(26,107,94,.15);border-radius:12px;display:none;animation:fadeIn .3s ease}
+.fa-text.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── STAGE 1: SCHREIBEN ─── */
+.card-write{background:linear-gradient(160deg,#0f2620 0%,#0a1c18 100%);border:1px solid rgba(255,255,255,.07)}
+.write-hdr{padding:13px 16px 11px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px}
+.write-emoji{font-size:20px}
+.write-title{font-size:12px;font-weight:700;color:rgba(255,255,255,.65)}
+.write-hint{font-size:11px;color:rgba(255,255,255,.3);margin-left:auto;direction:rtl}
+.write-body{padding:18px 14px 18px;text-align:center}
+.write-fa{font-size:12px;color:rgba(201,150,60,.8);direction:rtl;margin-bottom:14px;font-weight:600;padding:7px 12px;background:rgba(201,150,60,.07);border-radius:8px;display:inline-block}
+.word-boxes{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:0 auto 0}
+.lb{height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--de);font-weight:700;transition:all .2s;flex-shrink:0}
+.lb.shown{width:36px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.1);font-size:17px}
+.lb.sp{width:8px;background:transparent;border:none}
+.lb.hy{width:16px;background:transparent;border:none;color:rgba(255,255,255,.35);font-size:16px}
+.lb-inp{width:36px;height:44px;border-radius:8px;background:rgba(255,255,255,.06);border:2px solid rgba(201,150,60,.45);color:var(--goldl);font-family:var(--de);font-weight:700;font-size:17px;text-align:center;outline:none;transition:all .2s;flex-shrink:0;-webkit-appearance:none;appearance:none;caret-color:var(--gold)}
+.lb-inp:focus{border-color:var(--gold);background:rgba(201,150,60,.08);box-shadow:0 0 0 3px rgba(201,150,60,.15)}
+.lb-inp.ok{border-color:#4caf7d;background:rgba(45,106,79,.2);color:#6fdc9a}
+.lb-inp.err{border-color:#e07070;background:rgba(139,58,58,.2);color:#ff9a9a}
+/* Long words */
+.wbl .lb.shown,.wbl .lb-inp{width:30px;font-size:14px}
+.wbvl .lb.shown,.wbvl .lb-inp{width:24px;font-size:12px;height:38px}
+.write-result{margin-top:14px;font-size:14px;font-weight:800;animation:fadeIn .3s ease}
+.write-result.ok{color:#6fdc9a}
+.write-result.err{color:#ff9a9a}
+.write-gram{font-size:11px;color:rgba(255,255,255,.35);margin-top:8px;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px;font-family:var(--de);display:none;animation:fadeIn .3s ease}
+.write-gram.on{display:block}
+
+/* ─── STAGE 2: SÄTZE ─── */
+.card-sent{background:linear-gradient(160deg,#080f0d 0%,#040c09 100%);border:1px solid rgba(255,255,255,.06)}
+.sent-hdr{padding:12px 15px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between}
+.sent-hdr-l{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--gold)}
+.sent-hdr-r{font-family:var(--de);font-size:11px;color:rgba(255,255,255,.25)}
+.sent-body{padding:10px 12px 14px;display:flex;flex-direction:column;gap:7px}
+.sent-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:12px 13px;cursor:pointer;transition:all .15s}
+.sent-item:hover{background:rgba(255,255,255,.07)}
+.sent-de{font-family:var(--de);font-size:13px;color:rgba(255,255,255,.82);line-height:1.65}
+.sent-de .hl{color:var(--goldl);font-weight:700}
+.sent-fa{font-family:var(--fa);font-size:11px;color:rgba(255,255,255,.4);direction:rtl;text-align:right;margin-top:5px;line-height:1.6}
+.sent-spk{margin-top:7px;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(26,107,94,.2);border:1px solid rgba(26,107,94,.3);border-radius:7px;font-size:10px;color:#2aaa8e;font-family:var(--fa)}
+.loader-box{padding:36px 20px;text-align:center}
+.loader-emoji{font-size:36px;animation:spin 1.2s linear infinite;display:block;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-txt{font-size:12px;color:rgba(255,255,255,.35)}
+
+/* BOTTOM */
+.bottom{padding:8px 12px 16px;flex-shrink:0;display:flex;flex-direction:column;align-items:stretch;gap:7px}
+.btn-next{padding:13px 0;border-radius:15px;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:700;font-family:var(--fa);display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;box-shadow:0 4px 16px rgba(26,107,94,.35)}
+.btn-next:hover{background:var(--teal2);transform:translateY(-1px)}
+.btn-next:active{transform:translateY(0)}
+.btn-check{padding:13px 0;border-radius:15px;background:var(--gold2);color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:700;font-family:var(--fa);transition:all .15s;box-shadow:0 4px 16px rgba(176,125,40,.35)}
+.btn-check:hover{background:#9a6b1e;transform:translateY(-1px)}
+.rating-row{display:flex;gap:8px}
+.btn-fail{flex:1;padding:12px 0;background:rgba(139,58,58,.15);border:1.5px solid rgba(139,58,58,.3);border-radius:14px;color:#ff9a9a;cursor:pointer;font-size:13px;font-weight:700;font-family:var(--fa);transition:all .15s}
+.btn-ok{flex:1;padding:12px 0;background:rgba(26,107,94,.15);border:1.5px solid rgba(26,107,94,.3);border-radius:14px;color:#2aaa8e;cursor:pointer;font-size:14px;font-weight:700;font-family:var(--fa);transition:all .15s}
+.btn-fail:hover{background:rgba(139,58,58,.25)}
+.btn-ok:hover{background:rgba(26,107,94,.25);transform:translateY(-1px)}
+
+/* DECK OVERLAY */
+.deck-ov{position:fixed;inset:0;background:rgba(8,10,14,.6);z-index:100;display:none;align-items:flex-end;backdrop-filter:blur(6px)}
+.deck-ov.on{display:flex}
+.deck-sheet{background:var(--card);border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));width:100%;max-width:480px;margin:0 auto;max-height:75dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:sUp .3s cubic-bezier(.34,1.2,.64,1)}
+@keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.deck-t{font-size:15px;font-weight:800;margin-bottom:14px;color:var(--c1)}
+.di{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:13px;cursor:pointer;margin-bottom:5px;transition:all .15s;border:1.5px solid transparent}
+.di:hover{background:var(--cream)}
+.di.on{background:var(--teall);border-color:rgba(26,107,94,.25)}
+.di-icon{font-size:20px;width:34px;text-align:center;flex-shrink:0}
+.di-name{font-size:13px;font-weight:700;color:var(--c1)}
+.di-cnt{font-size:11px;color:var(--c4);margin-top:1px}
+.di-chk{margin-left:auto;color:var(--teal);font-size:16px}
+
+/* DONE */
+.done{position:fixed;inset:0;background:var(--paper);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:20;padding:28px;max-width:480px;margin:0 auto}
+.done.on{display:flex}
+.done-medal{font-size:80px;animation:bIn .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bIn{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.done-title{font-size:26px;font-weight:900;color:var(--c1)}
+.done-sub{font-size:13px;color:var(--c3);text-align:center;direction:rtl;line-height:1.8}
+.done-stats{display:flex;gap:10px}
+.done-stat{background:var(--card);border:1px solid rgba(0,0,0,.07);border-radius:16px;padding:16px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.done-v{font-family:var(--de);font-size:30px;font-weight:700}
+.done-l{font-size:10px;color:var(--c4);margin-top:4px;font-weight:600}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;border-radius:100px;padding:8px 18px;font-size:12px;z-index:300;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ══ RESPONSIVE — MOBILE FIRST ══ */
+
+/* Base: all mobile (≤480px) */
+html,body{
+  height:100%;height:100dvh;  /* dynamic viewport for mobile browsers */
+  background:var(--paper);
+  overflow:hidden;
+  font-family:var(--fa);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Safe area for notch phones (iPhone X+) */
+.app{
+  padding-bottom:env(safe-area-inset-bottom);
+  padding-top:env(safe-area-inset-top);
+}
+.bottom{
+  padding-bottom:calc(10px + env(safe-area-inset-bottom));
+}
+
+/* Touch targets — minimum 44px for iOS HIG */
+.hdr-btn,.qm-close,.qm-cfg-btn{min-height:36px}
+.btn-next,.btn-check,.btn-fail,.btn-ok{min-height:48px;touch-action:manipulation}
+.qm-opt{min-height:52px;touch-action:manipulation}
+.di{min-height:52px}
+
+/* Welcome bar tighter on mobile */
+.welcome-bar{padding:4px 14px 2px}
+.wb-de{font-size:11px}
+.wb-name{font-size:12px}
+
+/* Header compact */
+.hdr{padding:6px 12px 4px}
+.logo-mark{width:28px;height:28px;font-size:14px}
+.logo-text{font-size:15px}
+.hdr-btn{padding:5px 10px;font-size:10px}
+.pi{font-size:10px}
+
+/* Streak bar compact */
+.streak-bar{padding:3px 12px 2px}
+.streak-box,.xp-box{padding:4px 10px}
+.streak-num{font-size:12px}
+
+/* Tabs compact */
+.tabs{padding:5px 10px 3px;gap:4px}
+.tab{padding:6px 3px;font-size:9px}
+
+/* Read card: smaller emoji on tiny screens */
+.read-hero{padding:18px 16px 16px}
+.read-emoji{font-size:52px;margin-bottom:8px}
+.read-word{font-size:26px}
+.read-gram{font-size:10px;margin-top:4px}
+.speak-row{margin-top:10px}
+.read-body{padding:12px 14px}
+.fa-text{font-size:20px;padding:10px 12px}
+
+/* Write card */
+.write-body{padding:14px 10px}
+.word-boxes{gap:4px}
+.lb.shown,.lb-inp{width:33px;height:40px;font-size:16px}
+.wbl .lb.shown,.wbl .lb-inp{width:26px;height:36px;font-size:13px}
+.wbvl .lb.shown,.wbvl .lb-inp{width:22px;height:32px;font-size:11px}
+
+/* Sent card */
+.sent-de{font-size:13px}
+.sent-fa{font-size:11px}
+
+/* Bottom */
+.bottom{padding:6px 12px calc(10px + env(safe-area-inset-bottom))}
+.btn-next,.btn-check{font-size:14px;padding:14px 0;border-radius:14px}
+.btn-fail,.btn-ok{font-size:13px;padding:12px 0}
+
+/* Hint card compact */
+.hint-card{padding:11px 13px}
+.hint-text{font-size:12px}
+
+/* Quiz overlay full screen on mobile */
+.qm-ov{padding-bottom:env(safe-area-inset-bottom)}
+.qm-opt{padding:12px 13px;min-height:52px}
+.qm-opt-text{font-size:13px}
+.qm-qtext{font-size:20px}
+.qm-qtext.de{font-size:22px}
+
+/* Tablet (≥600px) */
+@media(min-width:600px){
+  .read-word{font-size:34px}
+  .read-emoji{font-size:66px}
+  .lb.shown,.lb-inp{width:38px;height:46px;font-size:19px}
+  .sent-de{font-size:14px}
+  .btn-next,.btn-check{font-size:15px;padding:15px 0}
+  .hdr-btn{font-size:11px;padding:6px 13px}
+  .tabs{padding:7px 12px 5px}
+  .tab{font-size:10px;padding:7px 5px}
+}
+
+/* Desktop (≥900px) */
+@media(min-width:900px){
+  html,body{background:#1e1e1e;display:flex;align-items:center;justify-content:center}
+  .app{
+    height:calc(100vh - 32px);max-height:800px;
+    border-radius:26px;
+    box-shadow:0 32px 100px rgba(0,0,0,.5);
+    overflow:hidden;
+    margin:16px auto;
+    padding-bottom:0;
+  }
+  .bottom{padding-bottom:14px}
+  .read-word{font-size:36px}
+  .read-emoji{font-size:72px}
+  .lb.shown,.lb-inp{width:40px;height:48px;font-size:20px}
+  .sent-de{font-size:15px}
+}
+
+/* Very small phones (≤360px) */
+@media(max-width:360px){
+  .read-word{font-size:22px}
+  .read-emoji{font-size:44px}
+  .lb.shown,.lb-inp{width:28px;height:36px;font-size:14px}
+  .wbl .lb.shown,.wbl .lb-inp{width:23px;height:32px;font-size:12px}
+  .wbvl .lb.shown,.wbvl .lb-inp{width:19px;height:28px;font-size:10px}
+  .tab{font-size:8px;padding:5px 2px}
+  .hdr-btn{padding:4px 8px;font-size:9px}
+  .streak-num,.xp-num{font-size:11px}
+  .logo-text{font-size:13px}
+}
+
+/* ── STREAK & TIMER ── */
+.streak-bar{padding:4px 14px 2px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.streak-box{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;background:var(--cream);border:1px solid rgba(0,0,0,.08);transition:all .3s}
+.streak-box.fire{background:linear-gradient(135deg,rgba(255,140,0,.15),rgba(255,80,0,.1));border-color:rgba(255,120,0,.3)}
+.streak-num{font-family:var(--de);font-size:13px;font-weight:800;color:var(--c3);transition:all .3s}
+.streak-box.fire .streak-num{color:#ff6b00}
+.streak-label{font-size:10px;color:var(--c4);font-family:var(--fa)}
+.xp-box{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;background:linear-gradient(135deg,rgba(201,150,60,.12),rgba(176,125,40,.08));border:1px solid rgba(201,150,60,.25)}
+.xp-num{font-family:var(--de);font-size:13px;font-weight:800;color:var(--gold2)}
+.xp-label{font-size:10px;color:var(--gold2);opacity:.7;font-family:var(--fa)}
+
+/* TIMER BAR */
+.timer-wrap{padding:0 14px 6px;flex-shrink:0;display:none}
+.timer-wrap.on{display:block}
+.timer-track{height:5px;background:var(--warm);border-radius:3px;overflow:hidden}
+.timer-fill{height:100%;border-radius:3px;transition:width .1s linear,background .5s}
+.timer-label{font-size:10px;color:var(--c4);text-align:right;margin-top:2px;font-family:var(--de)}
+
+/* XP POP ANIMATION */
+.xp-pop{position:fixed;pointer-events:none;font-family:var(--de);font-weight:900;font-size:20px;color:var(--gold);z-index:500;animation:xpFloat 1.2s ease forwards}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.4)}}
+
+/* STREAK POP */
+@keyframes streakPop{0%{transform:scale(1)}40%{transform:scale(1.4)}100%{transform:scale(1)}}
+.streak-pop{animation:streakPop .4s ease}
+
+/* ── GRAMMAR HINT CARD ── */
+.hint-card{width:100%;max-width:420px;border-radius:16px;background:linear-gradient(135deg,rgba(201,150,60,.1),rgba(176,125,40,.06));border:1.5px solid rgba(201,150,60,.3);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;animation:fadeIn .35s ease}
+.hint-icon{font-size:24px;flex-shrink:0;margin-top:1px}
+.hint-body{flex:1}
+.hint-title{font-size:10px;font-weight:700;color:var(--gold2);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px}
+.hint-text{font-family:var(--fa);font-size:13px;font-weight:600;color:var(--c1);line-height:1.7;direction:rtl}
+.hint-example{font-family:var(--de);font-size:11px;color:var(--c3);margin-top:5px;padding:5px 8px;background:rgba(201,150,60,.08);border-radius:7px;direction:ltr;display:inline-block}
+
+/* ── QUIZ REVIEW SCREEN ── */
+.quiz-ov{position:fixed;inset:0;background:rgba(8,10,14,.85);z-index:50;display:none;align-items:flex-end;backdrop-filter:blur(8px)}
+.quiz-ov.on{display:flex}
+.quiz-sheet{background:var(--card);border-radius:26px 26px 0 0;padding:20px 16px 24px;width:100%;max-width:480px;margin:0 auto;animation:sUp .35s cubic-bezier(.34,1.2,.64,1)}
+.quiz-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--teal2),var(--teal));color:#fff;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;margin-bottom:14px}
+.quiz-title{font-family:var(--fa);font-size:17px;font-weight:900;color:var(--c1);margin-bottom:4px}
+.quiz-sub{font-family:var(--fa);font-size:12px;color:var(--c4);margin-bottom:18px}
+.quiz-q{background:linear-gradient(135deg,#0f2620,#0a1c18);border-radius:18px;padding:20px;text-align:center;margin-bottom:16px}
+.quiz-q-label{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1.2px;margin-bottom:8px;font-weight:600}
+.quiz-q-fa{font-family:var(--fa);font-size:22px;font-weight:900;color:#fff;direction:rtl;line-height:1.5}
+.quiz-q-emoji{font-size:36px;margin-bottom:8px}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{padding:14px 16px;border-radius:14px;border:1.5px solid rgba(0,0,0,.09);background:var(--cream);cursor:pointer;font-family:var(--de);font-size:15px;font-weight:700;color:var(--c1);text-align:left;transition:all .15s;display:flex;align-items:center;gap:10px}
+.quiz-opt:hover{background:var(--teall);border-color:rgba(26,107,94,.3)}
+.quiz-opt.correct{background:rgba(45,106,79,.12);border-color:#4caf7d;color:#2d6a4f}
+.quiz-opt.wrong{background:rgba(139,58,58,.1);border-color:#e07070;color:var(--rose)}
+.quiz-opt.reveal-correct{background:rgba(45,106,79,.12);border-color:#4caf7d;color:#2d6a4f}
+.quiz-opt-num{width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.07);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--fa)}
+.quiz-score{text-align:center;margin-top:14px;font-family:var(--fa);font-size:13px;color:var(--c3);display:none}
+.quiz-continue{width:100%;padding:13px;border-radius:14px;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:700;font-family:var(--fa);margin-top:14px;display:none;box-shadow:0 4px 14px rgba(26,107,94,.3)}
+
+/* ── SENTENCE POSITION ── */
+.hint-satz{margin-top:10px;width:100%}
+.hint-satz-label{font-size:9px;color:var(--gold2);font-weight:700;letter-spacing:1px;margin-bottom:5px;font-family:var(--fa)}
+.satz-boxes{display:flex;gap:3px;flex-wrap:wrap;align-items:center}
+.sb{padding:4px 8px;border-radius:7px;font-family:var(--de);font-size:11px;font-weight:600;border:1.5px solid transparent;text-align:center;min-width:32px}
+.sb.pos1{background:rgba(26,107,94,.12);border-color:rgba(26,107,94,.3);color:var(--teal)}
+.sb.verb{background:rgba(201,150,60,.15);border-color:rgba(201,150,60,.4);color:var(--gold2)}
+.sb.target{background:rgba(201,150,60,.25);border-color:var(--gold2);color:var(--gold2);font-weight:800;box-shadow:0 0 0 2px rgba(201,150,60,.15)}
+.sb.mid{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.1);color:var(--c3)}
+.sb.end{background:rgba(139,58,58,.1);border-color:rgba(139,58,58,.25);color:var(--rose)}
+.sb.arr{background:transparent;border:none;color:var(--c5);font-size:10px;padding:0 2px}
+
+/* SENTENCE POSITION */
+.hint-satz{margin-top:10px;width:100%}
+.hint-satz-label{font-size:9px;color:var(--gold2);font-weight:700;letter-spacing:1px;margin-bottom:5px;font-family:var(--fa)}
+.satz-boxes{display:flex;gap:3px;flex-wrap:wrap;align-items:center}
+.sb{padding:4px 8px;border-radius:7px;font-family:var(--de);font-size:11px;font-weight:600;border:1.5px solid transparent;text-align:center;min-width:28px}
+.sb.pos1{background:rgba(26,107,94,.12);border-color:rgba(26,107,94,.3);color:var(--teal)}
+.sb.verb{background:rgba(201,150,60,.15);border-color:rgba(201,150,60,.4);color:var(--gold2)}
+
+.sb.mid{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.1);color:var(--c3)}
+.sb.end{background:rgba(139,58,58,.1);border-color:rgba(139,58,58,.25);color:var(--rose)}
+.sb.arr{background:transparent;border:none;color:var(--c5);font-size:12px;padding:0 1px}
+
+/* ══ PURE QUIZ MODE ══ */
+.qm-ov{position:fixed;inset:0;background:var(--paper);z-index:60;display:none;flex-direction:column;max-width:480px;margin:0 auto}
+.qm-ov.on{display:flex}
+.qm-hdr{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid var(--warm)}
+.qm-hdr-title{font-family:var(--de);font-size:16px;font-weight:800;color:var(--c1);display:flex;align-items:center;gap:7px}
+.qm-close{width:34px;height:34px;border-radius:50%;background:var(--cream);border:1px solid rgba(0,0,0,.1);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.qm-prog{height:4px;background:var(--warm);flex-shrink:0}
+.qm-prog-fill{height:100%;background:linear-gradient(90deg,var(--teal2),var(--teal));transition:width .4s ease}
+.qm-body{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px}
+/* Question card */
+.qm-card{border-radius:20px;background:linear-gradient(160deg,var(--teal2),var(--teal));padding:20px;text-align:center;flex-shrink:0}
+.qm-qnum{font-size:10px;color:rgba(255,255,255,.5);font-weight:700;letter-spacing:1.2px;margin-bottom:10px}
+.qm-emoji{font-size:48px;margin-bottom:8px}
+.qm-qlabel{font-size:10px;color:rgba(255,255,255,.45);margin-bottom:5px;letter-spacing:1px}
+.qm-qtext{font-family:var(--fa);font-size:22px;font-weight:900;color:#fff;direction:rtl;line-height:1.5}
+.qm-qtext.de{font-family:var(--de);font-size:26px;font-weight:700;direction:ltr}
+/* Options */
+.qm-opts{display:flex;flex-direction:column;gap:7px;flex-shrink:0}
+.qm-opt{padding:14px 16px;border-radius:14px;border:1.5px solid rgba(0,0,0,.09);background:var(--card);cursor:pointer;display:flex;align-items:center;gap:11px;transition:all .18s;text-align:left}
+.qm-opt:hover{background:var(--teall);border-color:rgba(26,107,94,.3);transform:translateX(-2px)}
+.qm-opt.correct{background:rgba(45,106,79,.12);border-color:#4caf7d !important;transform:none}
+.qm-opt.wrong{background:rgba(139,58,58,.1);border-color:#e07070 !important;transform:none}
+.qm-opt.show-correct{background:rgba(45,106,79,.08);border-color:#4caf7d !important;transform:none}
+.qm-opt[disabled]{pointer-events:none}
+.qm-opt-num{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.07);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--fa);color:var(--c3)}
+.qm-opt.correct .qm-opt-num{background:#4caf7d;color:#fff}
+.qm-opt.wrong .qm-opt-num{background:#e07070;color:#fff}
+.qm-opt-text{font-family:var(--de);font-size:14px;font-weight:600;color:var(--c1)}
+.qm-opt-text.fa{font-family:var(--fa);font-size:14px;direction:rtl}
+/* Bottom */
+.qm-bot{padding:10px 14px 18px;flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.qm-feedback{text-align:center;font-family:var(--fa);font-size:13px;font-weight:700;min-height:20px;padding:6px 0}
+.qm-feedback.ok{color:var(--green)}
+.qm-feedback.err{color:var(--rose)}
+/* Config screen */
+.qm-cfg{flex:1;padding:20px 16px;display:flex;flex-direction:column;gap:14px}
+.qm-cfg-title{font-family:var(--fa);font-size:15px;font-weight:800;color:var(--c1)}
+.qm-cfg-row{display:flex;flex-direction:column;gap:6px}
+.qm-cfg-label{font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.8px;font-family:var(--fa)}
+.qm-cfg-btns{display:flex;gap:6px;flex-wrap:wrap}
+.qm-cfg-btn{padding:8px 16px;border-radius:12px;border:1.5px solid rgba(0,0,0,.1);background:var(--cream);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--fa);color:var(--c2);transition:all .15s}
+.qm-cfg-btn.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+/* Done */
+.qm-done{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
+.qm-done-medal{font-size:72px;animation:bIn .5s cubic-bezier(.34,1.56,.64,1)}
+.qm-done-score{font-family:var(--de);font-size:52px;font-weight:900;color:var(--teal)}
+.qm-done-sub{font-family:var(--fa);font-size:13px;color:var(--c3);line-height:1.8}
+
+/* MEANING TAP on hint card */
+.hint-card{cursor:pointer;transition:all .2s}
+.hint-card:active{transform:scale(.985)}
+.hint-meaning{display:none;margin-top:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(26,107,94,.1),rgba(13,74,64,.06));border:1.5px solid rgba(26,107,94,.25);border-radius:12px;text-align:center;animation:fadeIn .25s ease}
+.hint-meaning.on{display:block}
+.hint-meaning-fa{font-family:var(--fa);font-size:22px;font-weight:900;color:var(--c1);direction:rtl;line-height:1.5}
+.hint-meaning-de{font-family:var(--de);font-size:11px;color:var(--c3);margin-top:3px}
+.hint-tap-hint{font-size:10px;color:var(--c5);text-align:center;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:4px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="welcome-bar">
+    <span class="wb-de">Willkommen,</span>
+    <span class="wb-name">Amir Rezai</span>
+    <span class="wb-wave">👋</span>
+  </div>
+  <div class="hdr">
+    <div class="logo">
+      <div class="logo-mark">🧠</div>
+      <div class="logo-text">FlashKarte</div>
+    </div>
+    <div class="hdr-right">
+      <span class="pi" id="pi">۱ / ۱</span>
+      <button class="hdr-btn" onclick="setDeck('fehler')" id="mis-btn" style="display:none;background:rgba(139,58,58,.12);border-color:rgba(139,58,58,.3);color:var(--rose)">❌ <span id="mis-cnt">0</span> اشتباه</button>
+      <button class="hdr-btn" onclick="openQuizMode()" style="background:linear-gradient(135deg,rgba(201,150,60,.15),rgba(176,125,40,.1));border-color:rgba(201,150,60,.35);color:var(--gold2);font-weight:800">🎯 کویز</button>
+      <button class="hdr-btn" onclick="openDeck()">📦 فصل</button>
+    </div>
+  </div>
+  <div class="streak-bar">
+    <div class="streak-box" id="streak-box">
+      <span id="streak-icon">⚡</span>
+      <span class="streak-num" id="streak-num">0</span>
+      <span class="streak-label">streak</span>
+    </div>
+    <div class="xp-box">
+      <span class="xp-num" id="xp-num">0</span>
+      <span class="xp-label">XP</span>
+    </div>
+  </div>
+  <div class="pbar"><div class="pbar-fill" id="pf" style="width:0%"></div></div>
+  <div class="timer-wrap" id="timer-wrap">
+    <div class="timer-track"><div class="timer-fill" id="timer-fill" style="width:100%;background:var(--teal)"></div></div>
+    <div class="timer-label" id="timer-label">15s</div>
+  </div>
+  <div class="tabs" id="tabs">
+    <div class="tab" id="t0"><div class="tab-num">۱</div>📖 خواندن</div>
+    <div class="tab" id="t1"><div class="tab-num">۲</div>✏️ نوشتن</div>
+    <div class="tab" id="t2"><div class="tab-num">۳</div>💬 جملات</div>
+  </div>
+  <div class="main" id="main"></div>
+  <div class="bottom" id="bot"></div>
+
+  <!-- Deck overlay -->
+  <div class="deck-ov" id="deck-ov" onclick="if(event.target===this)closeDeck()">
+    <div class="deck-sheet">
+      <div class="deck-t">📦 انتخاب فصل</div>
+      <div id="dl"></div>
+    </div>
+  </div>
+
+  <!-- Done -->
+  <div class="done" id="done-screen">
+    <div class="done-medal" id="dm">🎉</div>
+    <div class="done-title">آفرین!</div>
+    <div class="done-sub" id="done-sub">همه کارت‌ها تموم شد</div>
+    <div class="done-stats">
+      <div class="done-stat"><div class="done-v" style="color:var(--green)" id="ds-ok">0</div><div class="done-l">درست ✓</div></div>
+      <div class="done-stat"><div class="done-v" style="color:var(--rose)" id="ds-fail">0</div><div class="done-l">اشتباه ✗</div></div>
+    </div>
+    <button class="btn-next" onclick="restart()" style="max-width:200px;margin-top:4px">🔄 دوباره</button>
+    <button id="done-mis-btn" onclick="setDeck("fehler")" style="display:none;max-width:220px;padding:11px 0;border-radius:14px;background:rgba(139,58,58,.15);border:1.5px solid rgba(139,58,58,.3);color:var(--rose);cursor:pointer;font-size:13px;font-weight:700;font-family:var(--fa)">❌ تمرین اشتباهات</button>
+  </div>
+
+
+  <!-- ══ PURE QUIZ MODE ══ -->
+  <div class="qm-ov" id="qm-ov">
+    <!-- CONFIG SCREEN -->
+    <div id="qm-config-screen">
+      <div class="qm-hdr">
+        <div class="qm-hdr-title">🎯 حالت کویز</div>
+        <button class="qm-close" onclick="closeQuizMode()">✕</button>
+      </div>
+      <div class="qm-cfg">
+        <div class="qm-cfg-title">تنظیمات کویز رو انتخاب کن</div>
+        <div class="qm-cfg-row">
+          <div class="qm-cfg-label">📦 دک</div>
+          <div class="qm-cfg-btns" id="qm-deck-btns"></div>
+        </div>
+        <div class="qm-cfg-row">
+          <div class="qm-cfg-label">🔢 تعداد سوال</div>
+          <div class="qm-cfg-btns">
+            <button class="qm-cfg-btn" data-cnt="5" onclick="setQMCnt(5)">۵ تا</button>
+            <button class="qm-cfg-btn on" data-cnt="10" onclick="setQMCnt(10)">۱۰ تا</button>
+            <button class="qm-cfg-btn" data-cnt="20" onclick="setQMCnt(20)">۲۰ تا</button>
+            <button class="qm-cfg-btn" data-cnt="0" onclick="setQMCnt(0)">همه</button>
+          </div>
+        </div>
+        <div class="qm-cfg-row">
+          <div class="qm-cfg-label">❓ نوع سوال</div>
+          <div class="qm-cfg-btns">
+            <button class="qm-cfg-btn on" data-mode="de2fa" onclick="setQMMode('de2fa')">🇩🇪 → فارسی</button>
+            <button class="qm-cfg-btn" data-mode="fa2de" onclick="setQMMode('fa2de')">فارسی → 🇩🇪</button>
+            <button class="qm-cfg-btn" data-mode="mix" onclick="setQMMode('mix')">🎲 ترکیبی</button>
+          </div>
+        </div>
+        <button class="btn-next" onclick="startQuizMode()" style="margin-top:10px">🚀 شروع کویز</button>
+      </div>
+    </div>
+    <!-- QUIZ SCREEN -->
+    <div id="qm-quiz-screen" style="display:none;flex-direction:column;height:100%">
+      <div class="qm-hdr">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="qm-hdr-title">🎯 کویز</div>
+          <div style="font-size:11px;color:var(--c4);font-family:var(--fa)" id="qm-score-hdr">۰ / ۰</div>
+        </div>
+        <button class="qm-close" onclick="closeQuizMode()">✕</button>
+      </div>
+      <div class="qm-prog"><div class="qm-prog-fill" id="qm-pf" style="width:0%"></div></div>
+      <div class="qm-body">
+        <div class="qm-card">
+          <div class="qm-qnum" id="qm-qnum">سوال ۱ از ۱۰</div>
+          <div class="qm-emoji" id="qm-emoji">📝</div>
+          <div class="qm-qlabel" id="qm-qlabel">ترجمه فارسی</div>
+          <div class="qm-qtext" id="qm-qtext">...</div>
+        </div>
+        <div class="qm-opts" id="qm-opts"></div>
+      </div>
+      <div class="qm-bot">
+        <div class="qm-feedback" id="qm-fb"></div>
+        <button class="btn-next" id="qm-next-btn" style="display:none" onclick="qmNext()">سوال بعدی ←</button>
+      </div>
+    </div>
+    <!-- DONE SCREEN -->
+    <div id="qm-done-screen" style="display:none;flex-direction:column;height:100%">
+      <div class="qm-hdr">
+        <div class="qm-hdr-title">🎯 نتیجه کویز</div>
+        <button class="qm-close" onclick="closeQuizMode()">✕</button>
+      </div>
+      <div class="qm-done">
+        <div class="qm-done-medal" id="qm-done-medal">🎉</div>
+        <div class="qm-done-score" id="qm-done-score">0/0</div>
+        <div class="qm-done-sub" id="qm-done-sub">نتیجه کویز</div>
+        <button class="btn-next" onclick="startQuizMode()" style="max-width:200px">🔄 دوباره</button>
+        <button class="btn-next" onclick="showQMConfig()" style="max-width:200px;background:var(--gold2)">⚙️ تنظیمات</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Review -->
+  <div class="quiz-ov" id="quiz-ov">
+    <div class="quiz-sheet" id="quiz-sheet">
+      <div class="quiz-badge">🎯 مرور ۱۰ کارت</div>
+      <div class="quiz-title" id="qz-title">کویز سریع!</div>
+      <div class="quiz-sub" id="qz-sub">کدوم کلمه این معنی رو داره؟</div>
+      <div class="quiz-q">
+        <div class="quiz-q-emoji" id="qz-emoji">📝</div>
+        <div class="quiz-q-label">ترجمه فارسی</div>
+        <div class="quiz-q-fa" id="qz-fa">...</div>
+      </div>
+      <div class="quiz-opts" id="qz-opts"></div>
+      <div class="quiz-score" id="qz-score"></div>
+      <button class="quiz-continue" id="qz-cont" onclick="closeQuiz()">ادامه یادگیری ←</button>
+    </div>
+  </div>
+  <!-- Mistakes Panel -->
+  <div class="deck-ov" id="mis-ov" onclick="if(event.target===this)closeMis()">
+    <div class="deck-sheet">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div class="deck-t" style="margin-bottom:0">❌ کلمات اشتباه</div>
+        <button onclick="clearMistakes()" style="background:none;border:1px solid rgba(139,58,58,.3);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--rose);cursor:pointer;font-family:var(--fa)">پاک کردن همه</button>
+      </div>
+      <div id="mis-list"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════
+   WORD DATA — chapters 8–14
+   [word_de, fa, grammar, emoji, chapter]
+══════════════════════════════════ */
+const W = [
+// ── Kapitel 8: Beruf und Arbeit ──
+['der Arzthelfer','دستیار پزشک','Nomen | die Arzthelferin, -nen','🏥',8],
+['der Arzt','پزشک','Nomen | =e | die Ärztin, Ärztinnen','👨‍⚕️',8],
+['die Mechatronikerin','مکاترونیست','Nomen | der Mechatroniker, -','⚙️',8],
+['die Polizistin','پلیس (زن)','Nomen | -nen | der Polizist, -en','👮‍♀️',8],
+['der Hausmeister','سرایدار','Nomen | - | die Hausmeisterin','🔑',8],
+['der Journalist','روزنامه‌نگار','Nomen | -en | die Journalistin, -nen','📰',8],
+['selbstständig','مستقل / خوداشتغال','Adjektiv | Selbstständigkeit (n.)','💼',8],
+['heiraten','ازدواج کردن','Verb | hat geheiratet','💍',8],
+['arbeitslos','بیکار','Adjektiv | Arbeitslosigkeit (n.)','😔',8],
+['die Stelle','شغل / موقعیت کاری','Nomen | -n | = Arbeitsplatz','💼',8],
+['der Kollege','همکار','Nomen | -n | die Kollegin, -nen','🤝',8],
+['nett','مهربان / خوش‌برخورد','Adjektiv | Gegenteil: unfreundlich','😊',8],
+['die Ausbildung','آموزش حرفه‌ای','Nomen | -en | ausbilden (Verb)','🎓',8],
+['dauern','طول کشیدن','Verb | hat gedauert | unpersönlich','⏱️',8],
+['der Patient','بیمار','Nomen | -en | die Patientin, -nen','🤒',8],
+['der Chef','رئیس','Nomen | -s | die Chefin, -nen','👔',8],
+['das Interview','مصاحبه','Nomen | -s | ein Interview machen','🎤',8],
+['die Praxis','مطب / کلینیک','Nomen | Praxen | = Arztpraxis','🏥',8],
+// ── Kapitel 9: Regeln ──
+['unterschreiben','امضا کردن','Verb | hat unterschrieben | Unterschrift (n.)','✍️',9],
+['der Automat','دستگاه خودپرداز','Nomen | -en | Fahrkartenautomat','🎰',9],
+['funktionieren','کار کردن','Verb | hat funktioniert | Funktion (n.)','⚙️',9],
+['wählen','انتخاب کردن','Verb | hat gewählt | die Wahl','🗳️',9],
+['das Geld','پول','Nomen | Sg. | Geld ausgeben','💶',9],
+['dürfen','مجاز بودن','Modalverb | darf | durfte | gedurft','✅',9],
+['beantragen','درخواست دادن','Verb | hat beantragt | der Antrag','📋',9],
+['erlauben','اجازه دادن','Verb | hat erlaubt | die Erlaubnis','🔓',9],
+['rauchen','سیگار کشیدن','Verb | hat geraucht | die Zigarette','🚬',9],
+['parken','پارک کردن','Verb | hat geparkt | der Parkplatz','🅿️',9],
+['verboten','ممنوع','Adjektiv | verbieten → verboten','🚫',9],
+['mitnehmen','با خود بردن','trennbar | nimmt mit | hat mitgenommen','🎒',9],
+['erklären','توضیح دادن','Verb | hat erklärt | die Erklärung','📖',9],
+['leise','آرام / بی‌صدا','Adjektiv/Adverb | Gegenteil: laut','🤫',9],
+['aufstehen','بلند شدن','trennbar | steht auf | ist aufgestanden','🧍',9],
+['öffnen','باز کردن','Verb | hat geöffnet | Gegenteil: schließen','🚪',9],
+['stempeln','مُهر زدن','Verb | hat gestempelt | der Stempel','📮',9],
+['abholen','تحویل گرفتن','trennbar | holt ab | hat abgeholt','🚗',9],
+['laut','بلند / پر سر و صدا','Adjektiv/Adverb | Gegenteil: leise','📢',9],
+// ── Kapitel 10: Gesundheit und Krankheit ──
+['die Notaufnahme','اورژانس','Nomen | -n | in die Notaufnahme','🏥',10],
+['die Tablette','قرص','Nomen | -n | Tabletten nehmen','💊',10],
+['wehtun','درد کردن','trennbar | tut weh | hat wehgetan','😣',10],
+['der Unfall','تصادف / حادثه','Nomen | =e | einen Unfall haben','🚑',10],
+['kühlen','خنک کردن','Verb | hat gekühlt | kühl (Adj.)','🧊',10],
+['der Doktor','دکتر','Nomen | -en | die Doktorin','👨‍⚕️',10],
+['das Medikament','دارو','Nomen | -e | Medikamente nehmen','💊',10],
+['sollen','باید (از نظر دیگری)','Modalverb | soll | sollte | gesollt','📋',10],
+['das Fieber','تب','Nomen | Sg. | Fieber haben | 38°C','🌡️',10],
+['die Salbe','پماد','Nomen | -n | Salbe auftragen','🧴',10],
+['der Schnupfen','آبریزش بینی','Nomen | Sg. | Schnupfen haben','🤧',10],
+['die Erkältung','سرماخوردگی','Nomen | -en | erkältet sein','🤒',10],
+['die Apotheke','داروخانه','Nomen | -n | der Apotheker','💊',10],
+['der Notfall','موقعیت اضطراری','Nomen | =e | Im Notfall: 112','🚨',10],
+['die Krankschreibung','گواهی بیماری','Nomen | -en | krankgeschrieben sein','📄',10],
+['die Versicherungskarte','کارت بیمه','Nomen | -n | Krankenversicherungskarte','💳',10],
+['die Besserung','بهبودی','Nomen | Sg. | Gute Besserung! (= Get well soon)','🌿',10],
+// Körperteile
+['das Auge','چشم','Nomen | -n | Augenfarbe','👁️',10],
+['das Ohr','گوش','Nomen | -en | das Ohr tut weh','👂',10],
+['der Arm','بازو / دست','Nomen | -e | den Arm heben','💪',10],
+['der Kopf','سر','Nomen | =e | Kopfschmerzen','🗣️',10],
+['die Nase','بینی','Nomen | -n | Nasenbluten','👃',10],
+['der Mund','دهان','Nomen | =er | Mundgeruch','👄',10],
+['der Fuß','پا','Nomen | =e | Fußschmerzen','🦶',10],
+['der Hals','گردن / گلو','Nomen | =e | Halsschmerzen','🫁',10],
+['der Rücken','کمر / پشت','Nomen | - | Rückenschmerzen','💆',10],
+['der Bauch','شکم','Nomen | =e | Bauchschmerzen','🫃',10],
+['das Bein','پا / ساق','Nomen | -e | das Bein brechen','🦵',10],
+['die Hand','دست','Nomen | =e | die Hand geben','✋',10],
+['der Finger','انگشت','Nomen | - | der Mittelfinger','☝️',10],
+// ── Kapitel 11: In der Stadt ──
+['die Werkstatt','تعمیرگاه','Nomen | =en | Auto zur Werkstatt bringen','🔧',11],
+['der Schlüssel','کلید','Nomen | - | Schlüssel verlieren','🗝️',11],
+['die Ampel','چراغ راهنمایی','Nomen | -n | an der Ampel warten','🚦',11],
+['die Haltestelle','ایستگاه','Nomen | -n | an der Haltestelle warten','🚏',11],
+['die Buchhandlung','کتابفروشی','Nomen | -en | Bücher kaufen','📚',11],
+['die Bücherei','کتابخانه','Nomen | -en | = Bibliothek','📖',11],
+['die Bäckerei','نانوایی','Nomen | -en | Brot kaufen','🥖',11],
+['die Straßenbahn','تراموا','Nomen | -en | mit der Straßenbahn fahren','🚃',11],
+['die U-Bahn','مترو','Nomen | -en | U-Bahn-Linie','🚇',11],
+['der Zug','قطار','Nomen | =e | Zug verpassen','🚂',11],
+['die Auskunft','اطلاعات','Nomen | =e | Auskunft geben','ℹ️',11],
+['das Museum','موزه','Nomen | Museen | Museumsbesuch','🏛️',11],
+['geradeaus','مستقیم','Adverb | immer geradeaus gehen','➡️',11],
+['rechts','راست','Adverb | nach rechts abbiegen','👉',11],
+['links','چپ','Adverb | nach links gehen','👈',11],
+['ausleihen','امانت گرفتن','trennbar | leiht aus | hat ausgeliehen','📚',11],
+['fremd','غریبه / بیگانه','Adjektiv | Ich bin hier fremd.','🌍',11],
+['die Metzgerei','قصابی','Nomen | -en | Fleisch kaufen','🥩',11],
+['der Bahnhof','ایستگاه قطار','Nomen | =e | am Bahnhof warten','🚉',11],
+['der Weg','مسیر / راه','Nomen | -e | den Weg fragen','🗺️',11],
+// ── Kapitel 12: Kundenservice ──
+['der Fahrplan','جدول حرکت / برنامه','Nomen | =e | den Fahrplan prüfen','📅',12],
+['die Rechnung','صورتحساب','Nomen | -en | Rechnung bezahlen','🧾',12],
+['kaputt','خراب','Adjektiv | Gegenteil: neu / funktioniert','💔',12],
+['reparieren','تعمیر کردن','Verb | hat repariert | die Reparatur','🔧',12],
+['unfreundlich','بی‌ادب / سرد','Adjektiv | Gegenteil: freundlich','😤',12],
+['stören','مزاحم شدن','Verb | hat gestört | die Störung','🚫',12],
+['die Heizung','گرمایش / بخاری','Nomen | -en | Heizung funktioniert nicht','🌡️',12],
+['empfehlen','توصیه کردن','Verb | empfiehlt | hat empfohlen | + Akk','⭐',12],
+['reservieren','رزرو کردن','Verb | hat reserviert | die Reservierung','🪑',12],
+['hinterlassen','پیام گذاشتن','Verb | hat hinterlassen | Nachricht hinterlassen','📨',12],
+['erreichbar','قابل دسترس','Adjektiv | Im Moment nicht erreichbar','📞',12],
+['zurückrufen','زنگ برگشتن','trennbar | ruft zurück | hat zurückgerufen','📱',12],
+['verlängern','تمدید کردن','Verb | hat verlängert | die Verlängerung','⏰',12],
+['günstig','ارزان / مناسب','Adjektiv | = billig (inf.) | Gegenteil: teuer','💰',12],
+['bestellen','سفارش دادن','Verb | hat bestellt | die Bestellung','🛒',12],
+['sich lohnen','ارزش داشتن','reflexiv | hat sich gelohnt | Es lohnt sich!','💎',12],
+['reinigen','تمیز کردن','Verb | hat gereinigt | die Reinigung','🧹',12],
+['drücken','فشار دادن','Verb | hat gedrückt | Taste drücken','👆',12],
+['anmachen','روشن کردن','trennbar | macht an | hat angemacht','💡',12],
+// ── Kapitel 13: Neue Kleider ──
+['das Kaufhaus','فروشگاه بزرگ','Nomen | =er | im Kaufhaus einkaufen','🏬',13],
+['die Jacke','کت / ژاکت','Nomen | -n | eine Jacke anprobieren','🧥',13],
+['der Mantel','پالتو','Nomen | = | einen Mantel tragen','🧥',13],
+['die Bluse','بلوز','Nomen | -n | eine Bluse kaufen','👕',13],
+['die Hose','شلوار','Nomen | -n | eine Hose anziehen','👖',13],
+['der Stiefel','چکمه','Nomen | - | Stiefel tragen','👢',13],
+['der Pullover','پلیور / ژاکت','Nomen | - | einen Pullover anziehen','🧶',13],
+['die Jeans','جین','Nomen | - | Jeans und T-Shirt','👖',13],
+['der Schuh','کفش','Nomen | -e | Schuhe kaufen','👟',13],
+['der Rock','دامن','Nomen | =e | einen Rock tragen','👗',13],
+['das Kleid','لباس / پیراهن','Nomen | -er | ein Kleid kaufen','👗',13],
+['der Gürtel','کمربند','Nomen | - | einen Gürtel tragen','👔',13],
+['die Socke','جوراب','Nomen | -n | Socken anziehen','🧦',13],
+['passen','اندازه بودن / مناسب بودن','Verb | hat gepasst | Die Jacke passt mir.','✅',13],
+['meinen','فکر کردن / منظور داشتن','Verb | hat gemeint | Was meinen Sie?','💭',13],
+['die Drogerie','فروشگاه بهداشتی','Nomen | -n | in der Drogerie kaufen','🧴',13],
+['der Schmuck','زیورآلات','Nomen | Sg. | Schmuck tragen','💍',13],
+['die Zahnbürste','مسواک','Nomen | -n | Zähne putzen','🪥',13],
+['die Zahnpasta','خمیر دندان','Nomen | Sg. | Zahnpasta benutzen','🦷',13],
+['das Hemd','پیراهن مردانه','Nomen | -en | ein Hemd tragen','👔',13],
+['der Anzug','کت و شلوار','Nomen | =e | einen Anzug anziehen','🤵',13],
+['die Größe','سایز / اندازه','Nomen | -n | Welche Größe haben Sie?','📏',13],
+['das Erdgeschoss','طبقه همکف','Nomen | -e | im Erdgeschoss finden','🏠',13],
+['das Obergeschoss','طبقه بالا','Nomen | -e | im Obergeschoss','⬆️',13],
+// ── Kapitel 14: Feste ──
+['das Fest','جشن','Nomen | -e | ein Fest feiern','🎉',14],
+['der Geburtstag','تولد','Nomen | -e | Geburtstag feiern','🎂',14],
+['das Geschenk','هدیه','Nomen | -e | ein Geschenk geben','🎁',14],
+['einladen','دعوت کردن','trennbar | lädt ein | hat eingeladen','✉️',14],
+['gratulieren','تبریک گفتن','Verb | hat gratuliert | + Dativ','🎊',14],
+['das Weihnachten','کریسمس','Nomen | Sg. | Frohe Weihnachten!','🎄',14],
+['das Silvester','شب سال نو','Nomen | Sg. | an Silvester feiern','🎆',14],
+['das Feuerwerk','آتش‌بازی','Nomen | -e | Feuerwerk zünden','🎇',14],
+['das Ostern','عید پاک','Nomen | Sg. | Frohe Ostern!','🐰',14],
+['die Hochzeit','عروسی','Nomen | -en | auf einer Hochzeit tanzen','💒',14],
+['der Karneval','کارناوال','Nomen | Sg. | Karneval feiern','🎭',14],
+['die Einladung','دعوتنامه','Nomen | -en | eine Einladung schreiben','✉️',14],
+['feiern','جشن گرفتن','Verb | hat gefeiert | Geburtstag feiern','🥳',14],
+['schenken','هدیه دادن','Verb | hat geschenkt | + Dativ + Akkusativ','🎁',14],
+['traurig','غمگین','Adjektiv | Traurigkeit (n.) | Gegenteil: fröhlich','😢',14],
+['wunderbar','شگفت‌انگیز','Adjektiv | = toll | Das ist wunderbar!','✨',14],
+['hoffentlich','انشاالله / امیدوارم','Adverb | Hoffentlich klappt es!','🤞',14],
+['froh','خوشحال / شاد','Adjektiv | Frohe Weihnachten! | = fröhlich','😊',14],
+];
+
+/* ── DECKS ── */
+const DECKS=[
+  {id:'all',name:'همه کلمات',icon:'🌟'},
+  {id:'fehler',name:'اشتباهات من',icon:'❌'},
+  {id:8,  name:'فصل ۸ — شغل و کار',icon:'💼'},
+  {id:9,  name:'فصل ۹ — قوانین',    icon:'📋'},
+  {id:10, name:'فصل ۱۰ — سلامتی',   icon:'🏥'},
+  {id:11, name:'فصل ۱۱ — در شهر',   icon:'🌆'},
+  {id:12, name:'فصل ۱۲ — خدمات',    icon:'🛎️'},
+  {id:13, name:'فصل ۱۳ — لباس',     icon:'👗'},
+  {id:14, name:'فصل ۱۴ — جشن‌ها',   icon:'🎉'},
+];
+
+const CH_NAMES={8:'Kapitel 8',9:'Kapitel 9',10:'Kapitel 10',11:'Kapitel 11',12:'Kapitel 12',13:'Kapitel 13',14:'Kapitel 14'};
+
+/* ── STATE ── */
+let S={
+  words:[], idx:0, stage:0, deck:'all',
+  sentences:null, loading:false,
+  blanks:null, checked:false, correct:false,
+  userAnswers:{}, showFa:false,
+  stats:{ok:0,fail:0},
+  mistakes:{},
+  streak:0, xp:0,
+  _timer:null, _timerSec:0,
+  reviewBuf:[],  // last 10 cards for quiz
+  quizAnswered:false,
+};
+
+/* ── INIT ── */
+function init(){
+  buildDeckList();
+  loadDeck();
+}
+
+function loadDeck(){
+  let src;
+  if(S.deck==='fehler'){
+    const mkeys=Object.keys(S.mistakes||{}).filter(k=>(S.mistakes[k]||0)>0);
+    src=W.filter(w=>mkeys.includes(w[0]));
+    src.sort((a,b)=>(S.mistakes[b[0]]||0)-(S.mistakes[a[0]]||0));
+  }else if(S.deck==='all'){
+    src=W;
+  }else{
+    src=W.filter(w=>w[4]==S.deck);
+  }
+  const seen=new Set();
+  S.words=src.filter(w=>{if(seen.has(w[0]))return false;seen.add(w[0]);return true;})
+             .sort(()=>Math.random()-.5);
+  S.idx=0;S.stage=0;S.stats={ok:0,fail:0};S.streak=0;S.xp=0;S.reviewBuf=[];
+  const sn=document.getElementById('streak-num');if(sn)sn.textContent='0';
+  const xn=document.getElementById('xp-num');if(xn)xn.textContent='0';
+  const sb=document.getElementById('streak-box');if(sb)sb.classList.remove('fire');
+  if(!S.mistakes)S.mistakes={};
+  resetCard();
+  document.getElementById('done-screen').classList.remove('on');
+  if(S.deck==='fehler' && !S.words.length){
+    document.getElementById('main').innerHTML=`
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 20px;text-align:center">
+        <span style="font-size:64px">🎉</span>
+        <div style="font-family:var(--fa);font-size:18px;font-weight:800;color:var(--c1)">هیچ اشتباهی نداری!</div>
+        <div style="font-family:var(--fa);font-size:13px;color:var(--c3);line-height:1.8">وقتی کلمه‌ای رو اشتباه بزنی<br>اینجا جمع میشه تا تمرین کنی</div>
+        <button onclick="setDeck('all')" class="btn-next" style="max-width:200px;margin-top:8px">🌟 برو به همه کلمات</button>
+      </div>`;
+    document.getElementById('bot').innerHTML='';
+    return;
+  }
+  render();
+}
+
+function resetCard(){
+  S.stage=0;S.sentences=null;S.blanks=null;S.checked=false;
+  S.correct=false;S.userAnswers={};S.showFa=false;S.loading=false;
+}
+
+/* ── RENDER ── */
+function render(){
+  if(S.idx>=S.words.length){showDone();return;}
+  updateProgress();updateTabs();
+  const w=S.words[S.idx];
+  if(S.stage===0)renderLesen(w);
+  else if(S.stage===1)renderSchreiben(w);
+  else renderSaetze(w);
+}
+
+function updateProgress(){
+  const pct=S.words.length?(S.idx/S.words.length*100):0;
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('pi').textContent=`${S.idx+1} / ${S.words.length}`;
+}
+
+function updateTabs(){
+  ['t0','t1','t2'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    const icons=['📖 خواندن','✏️ نوشتن','💬 جملات'];
+    const nums=['۱','۲','۳'];
+    el.className='tab'+(i===S.stage?' active':i<S.stage?' done':'');
+    el.innerHTML=`<div class="tab-num">${nums[i]}</div>${icons[i]}`;
+  });
+}
+
+/* ── STAGE 0: LESEN ── */
+
+/* ── GRAMMAR HINT ENGINE ── */
+function sb(txt,cls){return {txt,cls};}
+
+function mkb(t,c){return {t,c};}
+function getHint(w){
+  const [word, fa, gram] = w;
+  const g = gram.toLowerCase();
+  const wd = word.replace(/^(der|die|das|sich)\s+/i,'');
+  const V = wd.length > 9 ? wd.slice(0,7)+'..' : wd;
+
+  if(g.includes('modalverb'))
+    return {icon:'\u26a1',title:'\u0641\u0639\u0644 \u0645\u062f\u0627\u0644 (Modalverb)',
+      text:'\u062c\u0627\u06cc\u06af\u0627\u0647 \u06f2. \u0645\u0635\u062f\u0631 \u0628\u062f\u0648\u0646 zu \u0647\u0645\u06cc\u0634\u0647 \u0622\u062e\u0631 \u062c\u0645\u0644\u0647 \u0645\u06cc\u06af\u06cc\u0631\u0647.',
+      ex:'Ich '+wd+' heute arbeiten.',
+      satz:[mkb('Ich','pos1'),mkb(V,'verb'),mkb('heute','mid'),mkb('arbeiten','end'),mkb('.','arr')]};
+
+  if(g.includes('reflexiv') && g.includes('trennbar'))
+    return {icon:'\ud83d\udd04\u2702\ufe0f',title:'\u0641\u0639\u0644 \u0628\u0627\u0632\u062a\u0627\u0628\u06cc + \u062c\u062f\u0627\u0634\u0648\u0646\u062f\u0647',
+      text:'sich \u0628\u0644\u0627\u0641\u0627\u0635\u0644\u0647 \u0628\u0639\u062f \u0641\u0639\u0644. \u067e\u06cc\u0634\u0648\u0646\u062f \u062c\u062f\u0627 \u0634\u062f\u0647 \u0622\u062e\u0631 \u062c\u0645\u0644\u0647 \u0645\u06cc\u0631\u0647.',
+      ex:'Er '+wd+' sich schnell...',
+      satz:[mkb('Er','pos1'),mkb(V,'verb'),mkb('sich','target'),mkb('...','mid'),mkb('\u067e\u06cc\u0634\u0648\u0646\u062f','end')]};
+
+  if(g.includes('reflexiv'))
+    return {icon:'\ud83d\udd04',title:'\u0641\u0639\u0644 \u0628\u0627\u0632\u062a\u0627\u0628\u06cc (Reflexiv)',
+      text:'sich \u0628\u0644\u0627\u0641\u0627\u0635\u0644\u0647 \u0628\u0639\u062f \u0641\u0639\u0644 \u062c\u0627\u06cc\u06af\u0627\u0647 \u06f2 \u0645\u06cc\u0622\u06cc\u062f.',
+      ex:'Ich '+wd+' mich. / Er '+wd+' sich.',
+      satz:[mkb('Ich','pos1'),mkb(V,'verb'),mkb('mich','target'),mkb('.','arr')]};
+
+  if(g.includes('trennbar'))
+    return {icon:'\u2702\ufe0f',title:'\u0641\u0639\u0644 \u062c\u062f\u0627\u0634\u0648\u0646\u062f\u0647 (Trennbar)',
+      text:'\u0641\u0639\u0644 \u062c\u0627\u06cc\u06af\u0627\u0647 \u06f2. \u067e\u06cc\u0634\u0648\u0646\u062f \u062c\u062f\u0627 \u0634\u062f\u0647 \u0622\u062e\u0631 \u062c\u0645\u0644\u0647 \u0645\u06cc\u0631\u0647.',
+      ex:'Er '+V+' die Tür...',
+      satz:[mkb('Er','pos1'),mkb(V,'verb'),mkb('die Tür','mid'),mkb('\u067e\u06cc\u0634\u0648\u0646\u062f','end')]};
+
+  if(g.includes('hat ') || g.includes('ist ')){
+    const isIst=g.includes('ist ');
+    const pp=gram.match(/(?:hat|ist)\s+(\w+)/i)?.[1]||wd+'t';
+    return {icon:'\u23f0',title:'\u06af\u0630\u0634\u062a\u0647 — Perfekt',
+      text:(isIst?'\u0628\u0627 ist \u0635\u0631\u0641 \u0645\u06cc\u0634\u0647 (\u0641\u0639\u0644 \u062d\u0631\u06a9\u062a\u06cc)':'\u0628\u0627 hat \u0635\u0631\u0641 \u0645\u06cc\u0634\u0647')+'. Partizip II \u0622\u062e\u0631 \u062c\u0645\u0644\u0647.',
+      ex:'Er '+(isIst?'ist':'hat')+' heute '+pp+'.',
+      satz:[mkb('Er','pos1'),mkb(isIst?'ist':'hat','verb'),mkb('heute','mid'),mkb(pp,'end')]};
+  }
+
+  const art=word.match(/^(der|die|das)\s/i)?.[1]?.toLowerCase();
+  if(art){
+    const pl=gram.match(/Nomen\s*\|\s*([^\|]{1,8})\s*\|/)?.[1]?.trim()||'?';
+    const casesMap={
+      der:'Nom: der \u2192 Akk: den \u2192 Dat: dem',
+      die:'Nom: die \u2192 Akk: die \u2192 Dat: der',
+      das:'Nom: das \u2192 Akk: das \u2192 Dat: dem'
+    };
+    const artLabel={der:'\ud83d\udd35 \u0645\u0630\u06a9\u0631',die:'\ud83d\udd34 \u0645\u0624\u0646\u062b',das:'\ud83d\udfe2 \u062e\u0646\u062b\u06cc'};
+    const akk={der:'den',die:'die',das:'das'};
+    return {icon:'\ud83c\udff7\ufe0f',title:'\u062c\u0646\u0633 \u0627\u0633\u0645 \u2014 '+artLabel[art],
+      text:casesMap[art]+'\n\u062c\u0645\u0639: '+pl,
+      ex:art.charAt(0).toUpperCase()+art.slice(1)+' '+wd+' — '+fa,
+      satz:[mkb('Ich','pos1'),mkb('sehe','verb'),mkb(akk[art],'mid'),mkb(V,'target'),mkb('.','arr')]};
+  }
+
+  if(g.includes('adjektiv'))
+    return {icon:'\ud83c\udfa8',title:'\u0635\u0641\u062a (Adjektiv)',
+      text:'\u0628\u0639\u062f sein: \u0635\u0631\u0641 \u0646\u0645\u06cc\u0634\u0647. \u0642\u0628\u0644 \u0627\u0633\u0645: \u067e\u0633\u0648\u0646\u062f \u0645\u06cc\u06af\u06cc\u0631\u0647.',
+      ex:'Das ist '+wd+'. / ein '+wd+'er Mann',
+      satz:[mkb('Das','pos1'),mkb('ist','verb'),mkb(wd,'target'),mkb('.','arr')]};
+
+  if(g.includes('adverb'))
+    return {icon:'\ud83d\udd24',title:'\u0642\u06cc\u062f (Adverb)',
+      text:'\u0645\u06cc\u062a\u0648\u0646\u0647 \u062c\u0627\u06cc\u06af\u0627\u0647 \u06f1 (\u0642\u0628\u0644 \u0641\u0639\u0644) \u06cc\u0627 \u0645\u06cc\u0627\u0646\u2010\u0645\u06cc\u062f\u0627\u0646 \u0628\u06cc\u0627\u062f. \u062a\u063a\u06cc\u06cc\u0631 \u0646\u0645\u06cc\u06a9\u0646\u0647.',
+      ex:wd.charAt(0).toUpperCase()+wd.slice(1)+' kommt er. / Er kommt '+wd+'.',
+      satz:[mkb(V,'target'),mkb('\u2194\ufe0f','arr'),mkb('Er','pos1'),mkb('kommt','verb'),mkb(V,'target')]};
+
+  if(g.includes('pr\u00e4p'))
+    return {icon:'\ud83d\udd17',title:'\u062d\u0631\u0641 \u0627\u0636\u0627\u0641\u0647 (Pr\u00e4position)',
+      text:'\u062d\u0631\u0641 \u0627\u0636\u0627\u0641\u0647 + \u0627\u0633\u0645 \u06cc\u06a9 \u06af\u0631\u0648\u0647 \u062a\u0634\u06a9\u06cc\u0644 \u0645\u06cc\u062f\u0646. \u062d\u0627\u0644\u062a \u0627\u0633\u0645 \u0631\u0648 \u062a\u0639\u06cc\u06cc\u0646 \u0645\u06cc\u06a9\u0646\u0647.',
+      ex:gram.split('|')[0].trim(),
+      satz:[mkb('Ich','pos1'),mkb('gehe','verb'),mkb(V,'target'),mkb('...','mid')]};
+  return {icon:'💡',title:'نکته گرامری',
+    text:'به فرم دقیق این کلمه در جمله توجه کن.',
+    ex: gram.split('|')[0].trim()};
+}
+
+function renderLesen(w){
+  const[word,fa,gram,emoji,ch]=w;
+  document.getElementById('main').innerHTML=`
+    <div class="card card-read">
+      <div class="read-hero">
+        <div class="read-ch">${CH_NAMES[ch]||''}</div>
+        <span class="read-emoji">${emoji}</span>
+        <div class="read-word">${word}</div>
+        <div class="read-gram">${gram}</div>
+        <div class="speak-row">
+          <button class="speak-btn" onclick="speakWord()">🔊 تلفظ بشنو</button>
+        </div>
+      </div>
+      <div class="read-body">
+        <button class="fa-reveal-btn" id="frb" onclick="toggleFa()">👁️ ترجمه فارسی رو ببین</button>
+        <div class="fa-text${S.showFa?' on':''}" id="fat">${fa}</div>
+      </div>
+    </div>
+    <div class="hint-card" id="hint-card" style="display:none">
+      <div class="hint-icon" id="hi-icon">💡</div>
+      <div class="hint-body">
+        <div class="hint-title" id="hi-title">نکته گرامری</div>
+        <div class="hint-text" id="hi-text">در حال بارگذاری...</div>
+        <div class="hint-example" id="hi-ex" style="display:none"></div>
+        <div id="hi-root" style="display:none;margin-top:8px;padding:8px 10px;background:rgba(26,107,94,.06);border:1px solid rgba(26,107,94,.18);border-radius:10px"><div style="font-size:9px;color:var(--teal);font-weight:700;letter-spacing:1px;margin-bottom:4px">🌱 ریشه کلمه</div><div id="hi-root-txt" style="font-family:var(--de);font-size:12px;color:var(--c2);line-height:1.6"></div></div>
+        <div class="hint-satz" id="hi-satz" style="display:none"><div class="hint-satz-label">📍 جایگاه در جمله</div><div class="satz-boxes" id="hi-boxes"></div></div>
+        <div class="hint-meaning" id="hi-meaning"><div class="hint-meaning-fa" id="hi-meaning-fa">...</div><div class="hint-meaning-de" id="hi-meaning-de">...</div></div>
+      </div>
+      <div class="hint-tap-hint" id="hi-tap">👆 برای دیدن معنی بزن</div>
+    </div>`;
+  // Fill hint
+  const hint = getHint(w);
+  const ic=document.getElementById('hi-icon');
+  const ti=document.getElementById('hi-title');
+  const tx=document.getElementById('hi-text');
+  const ex=document.getElementById('hi-ex');
+  if(ic)ic.textContent=hint.icon;
+  if(ti)ti.textContent=hint.title;
+  if(tx)tx.textContent=hint.text;
+  if(ex&&hint.ex){ex.textContent=hint.ex;ex.style.display='inline-block';}
+  const sEl=document.getElementById('hi-satz');const bEl=document.getElementById('hi-boxes');
+  if(sEl&&bEl&&hint.satz&&hint.satz.length){bEl.innerHTML=hint.satz.map(b=>'<div class="sb '+b.c+'">'+b.t+'</div>').join('');sEl.style.display='block';}
+  const rEl=document.getElementById('hi-root');const rTx=document.getElementById('hi-root-txt');if(rEl&&rTx){const r=getWordRoot(w);if(r){rTx.innerHTML=r;rEl.style.display='block';}else rEl.style.display='none';}
+  // Fill meaning (hidden until tap)
+  const mFa=document.getElementById('hi-meaning-fa');const mDe=document.getElementById('hi-meaning-de');
+  if(mFa)mFa.textContent=fa;
+  if(mDe)mDe.textContent=word;
+  // Make hint card clickable
+  const hcard=document.getElementById('hint-card');
+  if(hcard){hcard.onclick=toggleHintMeaning;hcard.style.cursor='pointer';}
+
+  document.getElementById('bot').innerHTML=`
+    <button class="btn-next" onclick="goStage(1)">✏️ مرحله بعد: نوشتن ←</button>`;
+}
+
+function toggleHintMeaning(){
+  const m=document.getElementById('hi-meaning');
+  const tap=document.getElementById('hi-tap');
+  if(!m)return;
+  const on=m.classList.toggle('on');
+  if(tap)tap.textContent=on?'👆 دوباره بزن پنهان شه':'👆 برای دیدن معنی بزن';
+  if(on){
+    // Also auto-speak
+    const w=S.words[S.idx];if(w)speak(w[0],'de');
+  }
+}
+function toggleFa(){
+  S.showFa=!S.showFa;
+  const el=document.getElementById('fat');
+  const btn=document.getElementById('frb');
+  const hcard=document.getElementById('hint-card');
+  if(el)el.classList.toggle('on',S.showFa);
+  if(btn)btn.textContent=S.showFa?'🙈 پنهان کردن':'👁️ ترجمه فارسی رو ببین';
+  // Show hint card + meaning together with Persian
+  if(hcard){
+    hcard.style.display=S.showFa?'flex':'none';
+    if(S.showFa){
+      // Also show meaning automatically
+      const m=document.getElementById('hi-meaning');
+      const tap=document.getElementById('hi-tap');
+      if(m){m.classList.add('on');}
+      if(tap)tap.style.display='none';
+    }
+  }
+}
+
+/* ── STAGE 1: SCHREIBEN ── */
+function renderSchreiben(w){
+  const[word,fa,gram,emoji]=w;
+  if(!S.blanks)S.blanks=makeBlanks(word);
+  const{chars,blanked}=S.blanks;
+  const n=chars.length;
+  const lenCls=n>=14?' wbvl':n>=10?' wbl':'';
+  const bList=[...blanked].sort((a,b)=>a-b);
+
+  let html=`<div class="word-boxes${lenCls}" id="wb">`;
+  chars.forEach((c,i)=>{
+    if(c===' '){html+=`<div class="lb sp"></div>`;return;}
+    if(c==='-'){html+=`<div class="lb hy">-</div>`;return;}
+    if(blanked.has(i)){
+      const bk=bList.indexOf(i);
+      if(S.checked){
+        const typed=S.userAnswers[i]||'';
+        const ok=typed===c.toLowerCase();
+        html+=`<input class="lb-inp ${ok?'ok':'err'}" type="text" value="${c}" disabled id="bi${i}">`;
+      }else{
+        html+=`<input class="lb-inp" type="text" maxlength="1" data-p="${i}" data-bk="${bk}" id="bi${i}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" oninput="onIn(this)" onkeydown="onKey(event,this)">`;
+      }
+    }else{
+      html+=`<div class="lb shown">${c}</div>`;
+    }
+  });
+  html+='</div>';
+
+  const resultHtml=S.checked?`<div class="write-result ${S.correct?'ok':'err'}">${S.correct?'✅ آفرین! درسته!':'❌ اشتباه — جواب درست نشون داده شد'}</div>`:'';
+  const gramHtml=S.checked?`<div class="write-gram on">${gram}</div>`:'';
+
+  document.getElementById('main').innerHTML=`
+    <div class="card card-write">
+      <div class="write-hdr">
+        <div class="write-emoji">${emoji}</div>
+        <div class="write-title">حروف خالی رو پر کن ✍️</div>
+      </div>
+      <div class="write-body">
+        <div class="write-fa">${fa}</div>
+        ${html}
+        ${resultHtml}
+        ${gramHtml}
+      </div>
+    </div>`;
+
+  if(S.checked){
+    document.getElementById('bot').innerHTML=`<button class="btn-next" onclick="goStage(2)">💬 مرحله بعد: جملات ←</button>`;
+  }else{
+    document.getElementById('bot').innerHTML=`<button class="btn-check" onclick="checkBlanks()">✔️ بررسی کن</button>`;
+    setTimeout(()=>document.querySelector('.lb-inp')?.focus(),100);
+  }
+}
+
+function onIn(el){
+  el.setAttribute('data-v',el.value.toLowerCase());
+  if(el.value.length===1){
+    const bk=parseInt(el.getAttribute('data-bk'))+1;
+    document.querySelector(`.lb-inp[data-bk="${bk}"]`)?.focus();
+  }
+}
+
+function onKey(e,el){
+  if(e.key==='Backspace'&&!el.value){
+    const bk=parseInt(el.getAttribute('data-bk'))-1;
+    if(bk>=0){const p=document.querySelector(`.lb-inp[data-bk="${bk}"]`);if(p){p.value='';p.focus();}}
+  }
+  if(e.key==='Enter')checkBlanks();
+}
+
+function checkBlanks(){
+  const{chars,blanked}=S.blanks;
+  let ok=true;const ans={};
+  blanked.forEach(i=>{
+    const inp=document.getElementById(`bi${i}`);
+    const typed=(inp?.value||'').toLowerCase().trim();
+    ans[i]=typed;
+    if(typed!==chars[i].toLowerCase())ok=false;
+  });
+  S.userAnswers=ans;S.checked=true;S.correct=ok;
+  stopTimer();
+  render();
+}
+
+function makeBlanks(word){
+  const core=word.replace(/^(der|die|das|sich)\s+/gi,'');
+  const chars=core.split('');
+  const blanked=new Set();
+  for(let i=1;i<chars.length-1;i++){
+    if(chars[i]!==' '&&chars[i]!=='-'&&i%2===1)blanked.add(i);
+  }
+  if(blanked.size===0&&chars.length>2)blanked.add(1);
+  return{core,chars,blanked};
+}
+
+/* ── STAGE 2: SÄTZE ── */
+function renderSaetze(w){
+  const[word,fa,gram,emoji]=w;
+  const core=word.replace(/^(der|die|das|sich)\s+/gi,'');
+
+  if(S.loading){
+    document.getElementById('main').innerHTML=`
+      <div class="card card-sent" style="padding:0">
+        <div class="loader-box">
+          <span class="loader-emoji">⚙️</span>
+          <div class="loader-txt">داریم ۴ جمله می‌سازیم...</div>
+          <div style="margin-top:10px;font-family:var(--fa);font-size:11px;color:rgba(255,255,255,.2)" id="load-wait">لطفاً صبر کن...</div>
+        </div>
+      </div>`;
+    document.getElementById('bot').innerHTML=`
+      <button class="btn-fail" onclick="skipSentences()" style="opacity:.5;font-size:12px;padding:10px">⏭ رد کن، برو بعدی</button>`;
+    return;
+  }
+
+  if(!S.sentences){loadSentences(word,fa);return;}
+  // If empty or invalid, use fallback
+  if(!Array.isArray(S.sentences)||S.sentences.length===0){
+    S.sentences=makeFallbackSents(core,fa);
+  }
+
+  const re=new RegExp(`(${escRe(core)})(?=[^a-zA-ZäöüÄÖÜß]|$)`,'gi');
+  const rows=S.sentences.map((s,i)=>{
+    const hl=s.de.replace(re,'<span class="hl">$1</span>');
+    return`<div class="sent-item" onclick="speakSent(${i})">
+      <div class="sent-de">${hl}</div>
+      <div class="sent-fa">${s.fa}</div>
+      <button class="sent-spk" onclick="event.stopPropagation();speakSent(${i})">🔊 بشنو</button>
+    </div>`;
+  }).join('');
+
+  document.getElementById('main').innerHTML=`
+    <div class="card card-sent">
+      <div class="sent-hdr">
+        <div class="sent-hdr-l">💬 ۴ جمله نمونه</div>
+        <div class="sent-hdr-r">${emoji} ${word}</div>
+      </div>
+      <div class="sent-body">${rows}</div>
+    </div>`;
+
+  document.getElementById('bot').innerHTML=`
+    <div class="rating-row">
+      <button class="btn-fail" onclick="rate(false)">❌ نادیم</button>
+      <button class="btn-ok"   onclick="rate(true)" >✅ یاد گرفتم!</button>
+    </div>`;
+}
+
+function makeFallbackSents(core,fa){
+  const C=core.charAt(0).toUpperCase()+core.slice(1);
+  return[
+    {de:`${C} ist sehr wichtig.`,              fa:`${C} خیلی مهم است.`},
+    {de:`Ich lerne das Wort „${core}".`,        fa:`من کلمه «${core}» را یاد می‌گیرم.`},
+    {de:`Er verwendet „${core}" oft.`,          fa:`او اغلب از «${core}» استفاده می‌کند.`},
+    {de:`Können Sie „${core}" erklären?`,       fa:`می‌توانید «${core}» را توضیح دهید؟`},
+  ];
+}
+
+function skipSentences(){
+  S.sentences = makeFallbackSents(
+    S.words[S.idx]?.[0]?.replace(/^(der|die|das|sich)\s+/gi,'')||'...',
+    S.words[S.idx]?.[1]||''
+  );
+  S.loading=false;
+  render();
+}
+
+async function loadSentences(word,fa){
+  S.loading=true; render();
+  const core=word.replace(/^(der|die|das|sich)\s+/gi,'');
+
+  // Show "slow" message after 4 seconds
+  const slowTimer = setTimeout(()=>{
+    const el=document.getElementById('load-wait');
+    if(el)el.textContent='سرعت اینترنت کمه، کمی صبر کن یا رد کن...';
+  }, 4000);
+
+  try{
+    const ctrl = new AbortController();
+    const timeout = setTimeout(()=>ctrl.abort(), 10000); // 10s timeout
+
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      signal: ctrl.signal,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:800,
+        messages:[{role:'user',content:`Erstelle 4 sehr einfache A1/A2 Sätze mit "${core}". Antworte NUR JSON:\n[{"de":"...","fa":"..."},{"de":"...","fa":"..."},{"de":"...","fa":"..."},{"de":"...","fa":"..."}]\nfa=Persisch.`}]
+      })
+    });
+    clearTimeout(timeout);
+
+    const data=await res.json();
+    if(!res.ok) throw new Error('API error '+res.status);
+
+    let txt=(data.content?.[0]?.text||'').replace(/```json|```/g,'').trim();
+    // Extract JSON array even if there's extra text
+    const match = txt.match(/\[[\s\S]*\]/);
+    const parsed = match ? JSON.parse(match[0]) : null;
+    S.sentences = (Array.isArray(parsed) && parsed.length>=1) ? parsed : makeFallbackSents(core,fa);
+
+  }catch(e){
+    S.sentences = makeFallbackSents(core,fa);
+  }finally{
+    clearTimeout(slowTimer);
+  }
+  S.loading=false; render();
+}
+
+/* ── NAVIGATION ── */
+function goStage(n){
+  S.stage=n;
+  if(n===1){S.blanks=null;S.checked=false;S.correct=false;S.userAnswers={};setTimeout(startTimer,100);}
+  if(n===2){S.sentences=null;S.loading=false;}
+  render();
+}
+
+function rate(ok){
+  const word=S.words[S.idx]?.[0]||'';
+  stopTimer();
+  if(ok){
+    S.stats.ok++;
+    updateStreak(true);
+    // XP: base 10, +5 per streak tier, +5 if was correct in write stage
+    const bonus = S.correct ? 5 : 0;
+    const streakBonus = S.streak>=10?15:S.streak>=5?10:S.streak>=3?5:0;
+    addXP(10 + bonus + streakBonus, window.innerWidth/2, 300);
+  }else{
+    S.stats.fail++;
+    S.mistakes[word]=(S.mistakes[word]||0)+1;
+    updateStreak(false);
+  }
+  // Add to review buffer
+  const completedWord = S.words[S.idx];
+  if(completedWord){ S.reviewBuf.push(completedWord); }
+  S.idx++;resetCard();updateMisBadge();render();
+  // Trigger quiz after every 10 cards
+  if(S.reviewBuf.length >= 10){
+    const batch = [...S.reviewBuf];
+    S.reviewBuf = [];
+    setTimeout(()=>triggerQuiz(batch), 400);
+  }
+}
+
+/* ── DONE ── */
+function showDone(){
+  const t=S.stats.ok+S.stats.fail;
+  const acc=t?Math.round(S.stats.ok/t*100):0;
+  document.getElementById('ds-ok').textContent=S.stats.ok;
+  document.getElementById('ds-fail').textContent=S.stats.fail;
+  document.getElementById('dm').textContent=acc>=80?'🎉':acc>=60?'👍':'💪';
+  document.getElementById('done-sub').textContent=`${S.words.length} کارت مرور شد · دقت ${acc}٪`;
+  const misCount=Object.values(S.mistakes||{}).reduce((a,b)=>a+b,0);
+  const dmb=document.getElementById('done-mis-btn');
+  if(dmb)dmb.style.display=misCount>0?'':'none';
+  document.getElementById('done-screen').classList.add('on');
+}
+function restart(){document.getElementById('done-screen').classList.remove('on');loadDeck();}
+
+/* ── AUDIO — Web Speech API ── */
+let _voices = [];
+function _loadVoices(){
+  _voices = window.speechSynthesis.getVoices();
+}
+_loadVoices();
+if(window.speechSynthesis) window.speechSynthesis.onvoiceschanged = _loadVoices;
+
+function speak(txt, lang){
+  if(!window.speechSynthesis){showToast("⚠️ مرورگر از صدا پشتیبانی نمی‌کند");return;}
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt);
+  // Try to find a native German voice
+  const locale = lang === 'de' ? 'de' : 'fa';
+  const native = _voices.find(v => v.lang.startsWith(locale) && v.localService);
+  const any    = _voices.find(v => v.lang.startsWith(locale));
+  u.voice = native || any || null;
+  u.lang  = lang === 'de' ? 'de-DE' : 'fa-IR';
+  u.rate  = 0.82;
+  u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+function speakWord(){const w=S.words[S.idx];if(w)speak(w[0],"de");}
+function speakSent(i){const s=S.sentences?.[i];if(s)speak(s.de,'de');}
+
+
+/* ── STREAK & TIMER ENGINE ── */
+function updateStreak(ok){
+  if(ok){
+    S.streak++;
+    if(S.streak>=3){
+      const box=document.getElementById('streak-box');
+      if(box){box.classList.add('fire');box.classList.add('streak-pop');setTimeout(()=>box.classList.remove('streak-pop'),400);}
+    }
+  }else{
+    S.streak=0;
+    const box=document.getElementById('streak-box');
+    if(box)box.classList.remove('fire');
+  }
+  const sn=document.getElementById('streak-num');
+  const si=document.getElementById('streak-icon');
+  if(sn)sn.textContent=S.streak;
+  if(si)si.textContent=S.streak>=10?'🔥🔥':S.streak>=5?'🔥':S.streak>=3?'⚡':'⚡';
+}
+
+function addXP(pts, x, y){
+  S.xp+=pts;
+  const el=document.getElementById('xp-num');
+  if(el)el.textContent=S.xp;
+  // Floating XP pop
+  const pop=document.createElement('div');
+  pop.className='xp-pop';
+  pop.textContent='+'+pts+' XP';
+  pop.style.left=(x||window.innerWidth/2)+'px';
+  pop.style.top=(y||200)+'px';
+  document.body.appendChild(pop);
+  setTimeout(()=>pop.remove(),1300);
+}
+
+/* TIMER */
+const TIMER_SECS = 15;
+function startTimer(){
+  stopTimer();
+  S._timerSec = TIMER_SECS;
+  document.getElementById('timer-wrap').classList.add('on');
+  updateTimerUI();
+  S._timer = setInterval(()=>{
+    S._timerSec--;
+    updateTimerUI();
+    if(S._timerSec<=0){
+      stopTimer();
+      // Time up → auto-check if on write stage
+      if(S.stage===1 && !S.checked) checkBlanks();
+    }
+  }, 1000);
+}
+function stopTimer(){
+  clearInterval(S._timer);S._timer=null;
+  document.getElementById('timer-wrap')?.classList.remove('on');
+}
+function updateTimerUI(){
+  const pct=(S._timerSec/TIMER_SECS)*100;
+  const fill=document.getElementById('timer-fill');
+  const lbl=document.getElementById('timer-label');
+  if(fill){
+    fill.style.width=pct+'%';
+    fill.style.background=S._timerSec>8?'var(--teal)':S._timerSec>4?'var(--gold2)':'var(--rose)';
+  }
+  if(lbl)lbl.textContent=S._timerSec+'s';
+}
+
+
+
+/* ══ PURE QUIZ MODE ENGINE ══ */
+const QM = {
+  deck:'all', cnt:10, mode:'de2fa',
+  questions:[], idx:0, correct:0, answered:false,
+};
+
+function openQuizMode(){
+  showQMConfig();
+  document.getElementById('qm-ov').classList.add('on');
+  // Build deck buttons
+  const btns = document.getElementById('qm-deck-btns');
+  if(btns) btns.innerHTML = DECKS.map(d=>{
+    const cnt = d.id==='all'?W.length:d.id==='fehler'?Object.keys(S.mistakes||{}).filter(k=>(S.mistakes[k]||0)>0).length:W.filter(w=>w[4]===d.id).length;
+    return `<button class="qm-cfg-btn${QM.deck===d.id?' on':''}" onclick="setQMDeck('${d.id}')">${d.icon} ${d.name.split(' ')[0]} (${cnt})</button>`;
+  }).join('');
+}
+
+function closeQuizMode(){ document.getElementById('qm-ov').classList.remove('on'); }
+function showQMConfig(){
+  document.getElementById('qm-config-screen').style.display='';
+  document.getElementById('qm-quiz-screen').style.display='none';
+  document.getElementById('qm-done-screen').style.display='none';
+}
+
+function setQMDeck(id){
+  QM.deck=id;
+  document.querySelectorAll('#qm-deck-btns .qm-cfg-btn').forEach(b=>b.classList.toggle('on',b.textContent.includes(DECKS.find(d=>d.id===id)?.name.split(' ')[0]||'___')));
+  openQuizMode(); // refresh
+}
+function setQMCnt(n){ QM.cnt=n; document.querySelectorAll('[data-cnt]').forEach(b=>b.classList.toggle('on',+b.dataset.cnt===n)); }
+function setQMMode(m){ QM.mode=m; document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m)); }
+
+function startQuizMode(){
+  // Build word pool
+  let pool;
+  if(QM.deck==='all') pool=[...W];
+  else if(QM.deck==='fehler'){ const mk=Object.keys(S.mistakes||{}).filter(k=>(S.mistakes[k]||0)>0); pool=W.filter(w=>mk.includes(w[0])); }
+  else pool=W.filter(w=>w[4]==QM.deck);
+
+  // Remove duplicates
+  const seen=new Set(); pool=pool.filter(w=>{if(seen.has(w[0]))return false;seen.add(w[0]);return true;});
+  pool=pool.sort(()=>Math.random()-.5);
+
+  const n = QM.cnt===0 ? pool.length : Math.min(QM.cnt, pool.length);
+  QM.questions = pool.slice(0, n);
+  QM.idx=0; QM.correct=0; QM.answered=false;
+
+  document.getElementById('qm-config-screen').style.display='none';
+  document.getElementById('qm-quiz-screen').style.display='flex';
+  document.getElementById('qm-done-screen').style.display='none';
+  renderQMQuestion();
+}
+
+function renderQMQuestion(){
+  if(QM.idx >= QM.questions.length){ showQMDone(); return; }
+  QM.answered = false;
+  const q = QM.questions[QM.idx];
+  const total = QM.questions.length;
+  const numFA=['۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰'];
+
+  // Progress
+  document.getElementById('qm-pf').style.width=(QM.idx/total*100)+'%';
+  document.getElementById('qm-qnum').textContent='سوال '+(numFA[QM.idx]||QM.idx+1)+' از '+(numFA[total-1]||total);
+  document.getElementById('qm-score-hdr').textContent=QM.correct+' / '+QM.idx;
+  document.getElementById('qm-fb').textContent='';
+  document.getElementById('qm-fb').className='qm-feedback';
+  document.getElementById('qm-next-btn').style.display='none';
+
+  // Determine direction
+  const mode = QM.mode==='mix' ? (Math.random()>.5?'de2fa':'fa2de') : QM.mode;
+  q._mode = mode;
+
+  // Question display
+  if(mode==='de2fa'){
+    document.getElementById('qm-qlabel').textContent='این کلمه آلمانی چه معنی‌ای داره؟';
+    document.getElementById('qm-qtext').textContent=q[0];
+    document.getElementById('qm-qtext').className='qm-qtext de';
+  } else {
+    document.getElementById('qm-qlabel').textContent='کدوم کلمه آلمانی این معنی رو داره؟';
+    document.getElementById('qm-qtext').textContent=q[1];
+    document.getElementById('qm-qtext').className='qm-qtext';
+  }
+  document.getElementById('qm-emoji').textContent=q[3];
+
+  // Build 4 options (1 correct + 3 wrong from pool)
+  const others = QM.questions.filter((_,i)=>i!==QM.idx).sort(()=>Math.random()-.5).slice(0,3);
+  const opts = [...others, q].sort(()=>Math.random()-.5);
+  const numsFA=['۱','۲','۳','۴'];
+
+  document.getElementById('qm-opts').innerHTML = opts.map((o,i)=>{
+    const txt = mode==='de2fa' ? o[1] : o[0];
+    const txtCls = mode==='de2fa' ? 'qm-opt-text fa' : 'qm-opt-text';
+    const isCorrect = o[0]===q[0];
+    return `<button class="qm-opt" id="qmo-${i}" onclick="answerQM(${i},${isCorrect?'true':'false'},${opts.indexOf(opts.find(x=>x[0]===q[0]))})" >
+      <div class="qm-opt-num">${numsFA[i]}</div>
+      <span class="${txtCls}">${txt}</span>
+    </button>`;
+  }).join('');
+}
+
+function answerQM(chosen, isCorrect, correctIdx){
+  if(QM.answered) return;
+  QM.answered = true;
+
+  const opts=document.querySelectorAll('.qm-opt');
+  opts.forEach((el,i)=>{
+    el.setAttribute('disabled','');
+    if(i===correctIdx) el.classList.add(i===chosen?'correct':'show-correct');
+    else if(i===chosen && !isCorrect) el.classList.add('wrong');
+    el.querySelector('.qm-opt-num').textContent=['۱','۲','۳','۴'][i];
+  });
+  if(correctIdx < opts.length) opts[correctIdx].querySelector('.qm-opt-num').textContent = isCorrect?'✅':'✅';
+  if(!isCorrect && opts[chosen]) opts[chosen].querySelector('.qm-opt-num').textContent='❌';
+
+  if(isCorrect){
+    QM.correct++;
+    addXP(15, window.innerWidth/2, 300);
+    updateStreak(true);
+    document.getElementById('qm-fb').textContent='✅ آفرین! درسته!';
+    document.getElementById('qm-fb').className='qm-feedback ok';
+  } else {
+    updateStreak(false);
+    const correct = QM.questions[QM.idx];
+    const corTxt = QM.questions[QM.idx]._mode==='de2fa' ? correct[1] : correct[0];
+    document.getElementById('qm-fb').textContent='❌ جواب درست: '+corTxt;
+    document.getElementById('qm-fb').className='qm-feedback err';
+  }
+  document.getElementById('qm-next-btn').style.display='block';
+  document.getElementById('qm-score-hdr').textContent=QM.correct+' / '+(QM.idx+1);
+}
+
+function qmNext(){
+  QM.idx++;
+  renderQMQuestion();
+}
+
+function showQMDone(){
+  document.getElementById('qm-quiz-screen').style.display='none';
+  document.getElementById('qm-done-screen').style.display='flex';
+  const total=QM.questions.length;
+  const pct=total?Math.round(QM.correct/total*100):0;
+  document.getElementById('qm-done-medal').textContent=pct>=80?'🏆':pct>=60?'🎉':'💪';
+  document.getElementById('qm-done-score').textContent=QM.correct+' / '+total;
+  document.getElementById('qm-done-sub').textContent=
+    'دقت: '+pct+'٪\n'+
+    (pct>=80?'عالی! همه رو بلدی! 🔥':pct>=60?'خوب بود، کمی بیشتر تمرین کن':'باز تمرین کن، میشه! 💪');
+  addXP(QM.correct*5, window.innerWidth/2, 200);
+}
+
+/* ── QUIZ ENGINE ── */
+function triggerQuiz(batch){
+  if(!batch || batch.length < 4) return;
+  // Pick a random card as the question
+  const qIdx = Math.floor(Math.random() * batch.length);
+  const correct = batch[qIdx];
+  // Pick 3 wrong options from rest of batch
+  const wrong = batch.filter((_,i)=>i!==qIdx).sort(()=>Math.random()-.5).slice(0,3);
+  const options = [...wrong, correct].sort(()=>Math.random()-.5);
+
+  // Populate UI
+  document.getElementById('qz-emoji').textContent = correct[3];
+  document.getElementById('qz-fa').textContent = correct[1];
+  document.getElementById('qz-title').textContent = '🎯 کویز سریع — کدومه؟';
+  document.getElementById('qz-sub').textContent = 'کدوم کلمه آلمانی این معنی رو داره؟';
+
+  const optNums = ['۱','۲','۳','۴'];
+  document.getElementById('qz-opts').innerHTML = options.map((w,i)=>`
+    <button class="quiz-opt" id="qo-${i}" onclick="answerQuiz(${i},${options.indexOf(correct)})">
+      <div class="quiz-opt-num">${optNums[i]}</div>
+      <span>${w[0]}</span>
+    </button>`).join('');
+
+  document.getElementById('qz-score').style.display = 'none';
+  document.getElementById('qz-cont').style.display = 'none';
+  S.quizAnswered = false;
+  document.getElementById('quiz-ov').classList.add('on');
+}
+
+function answerQuiz(chosen, correctIdx){
+  if(S.quizAnswered) return;
+  S.quizAnswered = true;
+  const ok = chosen === correctIdx;
+
+  // Color all options
+  for(let i=0;i<4;i++){
+    const el=document.getElementById(`qo-${i}`);
+    if(!el)continue;
+    if(i===correctIdx) el.classList.add('reveal-correct');
+    else if(i===chosen && !ok) el.classList.add('wrong');
+    el.style.pointerEvents='none';
+  }
+
+  // XP
+  if(ok){ addXP(20, window.innerWidth/2, 200); updateStreak(true); }
+  else   { updateStreak(false); }
+
+  const score = document.getElementById('qz-score');
+  score.style.display = 'block';
+  score.textContent = ok ? '✅ آفرین! +20 XP' : `❌ جواب درست: ${document.querySelector(`#qo-${correctIdx} span`)?.textContent||''}`;
+  score.style.color = ok ? 'var(--green)' : 'var(--rose)';
+
+  document.getElementById('qz-cont').style.display = 'block';
+}
+
+function closeQuiz(){
+  document.getElementById('quiz-ov').classList.remove('on');
+}
+
+
+/* ── WORD ROOT ANALYSIS ── */
+function getWordRoot(w){
+  const [word,,gram] = w;
+  const wd = word.replace(/^(der|die|das|sich)\s+/i,'');
+  const g = gram.toLowerCase();
+
+  // ── Direct word breakdown map (word → breakdown) ──
+  const MAP = {
+    'Arzthelfer':    '<b>Arzt</b> (پزشک) + <b>helfen</b> (کمک کردن) → دستیار پزشک',
+    'Hausmeister':   '<b>Haus</b> (خانه) + <b>Meister</b> (استاد/ماهر) → سرایدار',
+    'Krankenpflegerin':'<b>krank</b> (بیمار) + <b>pflegen</b> (مراقبت) → پرستار',
+    'Ausbildung':    '<b>aus</b> (خارج) + <b>bilden</b> (آموزش) → آموزش حرفه‌ای',
+    'Arbeitslos':    '<b>Arbeit</b> (کار) + <b>-los</b> (بدون) → بیکار',
+    'arbeitslos':    '<b>Arbeit</b> (کار) + <b>-los</b> (بدون) → بیکار',
+    'Stelle':        '<b>stellen</b> (قرار دادن) → جایگاه / موقعیت',
+    'Kollege':       '<b>col-lega</b> (لاتین: همراه کار) → همکار',
+    'Journalist':    '<b>Journal</b> (روزنامه) + <b>-ist</b> (فاعل) → روزنامه‌نگار',
+    'selbstständig': '<b>selbst</b> (خود) + <b>ständig</b> (دائمی) → مستقل',
+    'Automat':       '<b>auto</b> (یونانی: خود) + <b>mat</b> → دستگاه خودکار',
+    'Notfall':       '<b>Not</b> (اضطرار) + <b>Fall</b> (حالت) → موقعیت اضطراری',
+    'Notaufnahme':   '<b>Not</b> (اضطرار) + <b>auf</b>+<b>nehmen</b> (پذیرفتن) → اورژانس',
+    'Medikament':    '<b>medica</b> (لاتین: دارو) + <b>-ment</b> → دارو',
+    'Krankschreibung':'<b>krank</b> (بیمار) + <b>schreiben</b> (نوشتن) → گواهی بیماری',
+    'Versicherungskarte':'<b>versichern</b> (بیمه) + <b>Karte</b> (کارت) → کارت بیمه',
+    'Erkältung':     '<b>kalt</b> (سرد) + <b>er-</b> (پیشوند نتیجه) + <b>-ung</b> → سرماخوردگی',
+    'Apotheke':      '<b>apotheke</b> (یونانی: انبار) → داروخانه',
+    'Tablette':      '<b>tabula</b> (لاتین: صفحه) → قرص',
+    'Haltestelle':   '<b>halten</b> (ایستادن) + <b>Stelle</b> (جایگاه) → ایستگاه',
+    'Buchhandlung':  '<b>Buch</b> (کتاب) + <b>handeln</b> (معامله) + <b>-ung</b> → کتابفروشی',
+    'Werkstatt':     '<b>Werk</b> (کار/اثر) + <b>Statt</b> (جایگاه) → تعمیرگاه',
+    'Schlüssel':     '<b>schließen</b> (قفل کردن) → کلید',
+    'Straßenbahn':   '<b>Straße</b> (خیابان) + <b>Bahn</b> (مسیر/ریل) → تراموا',
+    'Bahnhof':       '<b>Bahn</b> (ریل) + <b>Hof</b> (محوطه) → ایستگاه قطار',
+    'Auskunft':      '<b>aus</b> + <b>künden</b> (اعلام) → اطلاعات/راهنمایی',
+    'Fahrplan':      '<b>fahren</b> (رانندگی/رفتن) + <b>Plan</b> (برنامه) → جدول حرکت',
+    'Rechnung':      '<b>rechnen</b> (محاسبه) + <b>-ung</b> → صورتحساب',
+    'Viertelstunde': '<b>Viertel</b> (یک‌چهارم) + <b>Stunde</b> (ساعت) → ربع ساعت',
+    'Kaufhaus':      '<b>kaufen</b> (خریدن) + <b>Haus</b> (خانه) → فروشگاه بزرگ',
+    'Obergeschoss':  '<b>ober</b> (بالا/فوقانی) + <b>Geschoss</b> (طبقه) → طبقه بالا',
+    'Untergeschoss': '<b>unter</b> (زیر/پایین) + <b>Geschoss</b> (طبقه) → زیرزمین',
+    'Erdgeschoss':   '<b>Erde</b> (زمین) + <b>Geschoss</b> (طبقه) → طبقه همکف',
+    'Zahnbürste':    '<b>Zahn</b> (دندان) + <b>Bürste</b> (برس) → مسواک',
+    'Zahnpasta':     '<b>Zahn</b> (دندان) + <b>pasta</b> (خمیر) → خمیردندان',
+    'Geburtstag':    '<b>Geburt</b> (تولد) + <b>Tag</b> (روز) → روز تولد',
+    'Geschenk':      '<b>schenken</b> (هدیه دادن) → هدیه',
+    'Einladung':     '<b>ein</b>+<b>laden</b> (دعوت کردن) + <b>-ung</b> → دعوتنامه',
+    'Weihnachten':   '<b>weihe</b> (مقدس) + <b>Nacht</b> (شب) + <b>-en</b> → کریسمس',
+    'Feuerwerk':     '<b>Feuer</b> (آتش) + <b>Werk</b> (اثر/کار) → آتش‌بازی',
+    'Hochzeit':      '<b>hoch</b> (بالا) + <b>Zeit</b> (زمان) → عروسی (زمان اوج)',
+    'Karneval':      '<b>carne</b> (لاتین: گوشت) + <b>vale</b> (خداحافظ) → کارناوال',
+    'Besserung':     '<b>besser</b> (بهتر) + <b>-ung</b> → بهبودی',
+    'Schnupfen':     '<b>schnupfen</b> (استنشاق) → آبریزش بینی',
+    'Erkältung':     '<b>kalt</b> (سرد) + <b>-ung</b> → سرماخوردگی',
+    'Ausbildung':    '<b>aus</b>+<b>bilden</b> (شکل دادن) + <b>-ung</b> → آموزش حرفه‌ای',
+    'Drogerie':      '<b>drogue</b> (فرانسوی: مواد) → فروشگاه بهداشتی',
+  };
+
+  // Direct lookup first
+  if(MAP[wd]) return MAP[wd];
+
+  // ── Trennbar prefix detection ──
+  if(g.includes('trennbar')){
+    const prefixes=[
+      ['zurück','برگشت / عقب'],['weiter','ادامه / بیشتر'],['heraus','بیرون'],
+      ['herein','داخل'],['hinaus','به بیرون'],['hinein','به داخل'],
+      ['aufein','روی هم'],['zusammen','با هم'],['nach','بعد / دنبال'],
+      ['vor','قبل / جلو'],['mit','همراه / با'],['aus','خارج / تمام'],
+      ['ein','داخل / شروع'],['auf','بالا / باز'],['ab','دور / پایین'],
+      ['an','به / شروع'],['zu','بستن / به'],['um','تغییر / اطراف'],
+      ['hin','آنجا'],['her','اینجا / از'],['fest','محکم'],['frei','آزاد'],
+    ];
+    for(const [p, meaning] of prefixes){
+      if(wd.toLowerCase().startsWith(p) && wd.length > p.length+2){
+        const root=wd.slice(p.length);
+        return `<b>${p}-</b> (${meaning}) + <b>${root}</b> (ریشه فعل)`;
+      }
+    }
+  }
+
+  // ── Suffix patterns ──
+  if(wd.endsWith('igkeit')) return `<b>${wd.slice(0,-7)}</b> + <b>-igkeit</b> → اسم انتزاعی مرکب`;
+  if(wd.endsWith('keit'))   return `<b>${wd.slice(0,-4)}</b> + <b>-keit</b> → اسم انتزاعی از صفت`;
+  if(wd.endsWith('schaft')) return `<b>${wd.slice(0,-6)}</b> + <b>-schaft</b> → گروه / جامعه`;
+  if(wd.endsWith('heit'))   return `<b>${wd.slice(0,-4)}</b> + <b>-heit</b> → اسم انتزاعی`;
+  if(wd.endsWith('nung'))   return `<b>${wd.slice(0,-4)}</b> + <b>-nung</b> → اسم از فعل`;
+  if(wd.endsWith('ung'))    return `<b>${wd.slice(0,-3)}</b> + <b>-ung</b> → اسم از فعل <i>${wd.slice(0,-3)}en</i>`;
+  if(wd.endsWith('lich'))   return `<b>${wd.slice(0,-4)}</b> + <b>-lich</b> → صفت مشتق`;
+  if(wd.endsWith('isch'))   return `<b>${wd.slice(0,-4)}</b> + <b>-isch</b> → صفت منسوب`;
+  if(wd.endsWith('los'))    return `<b>${wd.slice(0,-3)}</b> + <b>-los</b> → «بدون ${wd.slice(0,-3)}»`;
+  if(wd.endsWith('voll'))   return `<b>${wd.slice(0,-4)}</b> + <b>-voll</b> → «پر از ${wd.slice(0,-4)}»`;
+  if(wd.endsWith('fähig'))  return `<b>${wd.slice(0,-5)}</b> + <b>-fähig</b> → قادر به / توانا در`;
+  if(wd.endsWith('reich'))  return `<b>${wd.slice(0,-5)}</b> + <b>-reich</b> → غنی از`;
+  if(wd.endsWith('isch'))   return `<b>${wd.slice(0,-4)}</b> + <b>-isch</b> → صفت نسبی`;
+
+  // ── Prefix patterns ──
+  if(wd.startsWith('un'))   return `<b>un-</b> (پیشوند منفی) + <b>${wd.slice(2)}</b>`;
+  if(wd.startsWith('ver'))  return `<b>ver-</b> (پیشوند: تغییر/اشتباه) + <b>${wd.slice(3)}</b>`;
+  if(wd.startsWith('be'))   return `<b>be-</b> (پیشوند: تأکید/متعدی) + <b>${wd.slice(2)}</b>`;
+  if(wd.startsWith('er'))   return `<b>er-</b> (پیشوند: نتیجه/تکمیل) + <b>${wd.slice(2)}</b>`;
+  if(wd.startsWith('ent'))  return `<b>ent-</b> (پیشوند: جدایی) + <b>${wd.slice(3)}</b>`;
+  if(wd.startsWith('über')) return `<b>über-</b> (بالاتر / پیشوند) + <b>${wd.slice(5)}</b>`;
+  if(wd.startsWith('unter'))return `<b>unter-</b> (زیر / پیشوند) + <b>${wd.slice(5)}</b>`;
+
+  return null;
+}
+
+/* ── MISTAKES PANEL ── */
+function openMis(){
+  const m=S.mistakes||{};
+  const sorted=Object.entries(m).filter(([k,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  const el=document.getElementById('mis-list');
+  if(!sorted.length){el.innerHTML='<div style="text-align:center;padding:30px;font-family:var(--fa);color:var(--c4)">🎉 هنوز اشتباهی نداری!</div>';
+  }else{
+    el.innerHTML=sorted.map(([word,cnt])=>{
+      const info=W.find(w=>w[0]===word);
+      return`<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--cream);border-radius:12px;margin-bottom:6px">
+        <span style="font-size:20px">${info?.[3]||'📝'}</span>
+        <div style="flex:1">
+          <div style="font-family:var(--de);font-size:13px;font-weight:700;color:var(--c1)">${word}</div>
+          <div style="font-family:var(--fa);font-size:12px;color:var(--teal)">${info?.[1]||''}</div>
+        </div>
+        <div style="background:rgba(139,58,58,.15);border:1px solid rgba(139,58,58,.3);border-radius:8px;padding:3px 9px;font-size:11px;font-weight:700;color:var(--rose);font-family:var(--fa)">${cnt}× اشتباه</div>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('mis-ov').classList.add('on');
+}
+function closeMis(){document.getElementById('mis-ov').classList.remove('on');}
+function clearMistakes(){S.mistakes={};updateMisBadge();openMis();}
+function updateMisBadge(){
+  const cnt=Object.values(S.mistakes||{}).reduce((a,b)=>a+b,0);
+  const btn=document.getElementById('mis-btn');
+  const span=document.getElementById('mis-cnt');
+  if(btn)btn.style.display=cnt>0?'':'none';
+  if(span)span.textContent=cnt;
+}
+
+/* ── DECK ── */
+function buildDeckList(){
+  document.getElementById('dl').innerHTML=DECKS.map(d=>{
+    let cnt;
+    if(d.id==='all')cnt=W.length;
+    else if(d.id==='fehler')cnt=Object.keys(S.mistakes||{}).filter(k=>(S.mistakes[k]||0)>0).length;
+    else cnt=W.filter(w=>w[4]===d.id).length;
+    return`<div class="di${S.deck==d.id?' on':''}" onclick="selDeck('${d.id}')">
+      <div class="di-icon">${d.icon}</div>
+      <div><div class="di-name">${d.name}</div><div class="di-cnt">${cnt} کلمه</div></div>
+      ${S.deck==d.id?'<div class="di-chk">✓</div>':''}
+    </div>`;
+  }).join('');
+}
+function openDeck(){buildDeckList();document.getElementById('deck-ov').classList.add('on');}
+function closeDeck(){document.getElementById('deck-ov').classList.remove('on');}
+function setDeck(id){S.deck=id;document.getElementById("deck-ov").classList.remove("on");loadDeck();showToast("📦 "+(DECKS.find(d=>d.id===id)?.name||id));}
+function selDeck(id){S.deck=(id==='all'?'all':isNaN(id)?id:+id);closeDeck();loadDeck();showToast('📦 '+(DECKS.find(d=>d.id===id)?.name||id));}
+
+/* ── HELPERS ── */
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+let _tt;
+function showToast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('on');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('on'),2000);
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();if(S.stage===0)goStage(1);else if(S.stage===2)rate(true);}
+  if(e.key==='ArrowRight'&&S.stage===2)rate(true);
+  if(e.key==='ArrowLeft'&&S.stage===2)rate(false);
+  if(e.key==='p'||e.key==='P'){const w=S.words[S.idx];if(w)speak(w[0],'de');}
+});
+
+init();
+</script>
+</body>
+</html>
